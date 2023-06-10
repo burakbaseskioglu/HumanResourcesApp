@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HumanResources.DataAccess\HumanResources.DataAccess.csproj" />
-    <ProjectReference Include="..\HumanResources.Entity\HumanResources.Entity.csproj" />
+    <ProjectReference Include="..\HumanResources.Entity\HumanResources.Entities.csproj" />
   </ItemGroup>
 
 </Project>

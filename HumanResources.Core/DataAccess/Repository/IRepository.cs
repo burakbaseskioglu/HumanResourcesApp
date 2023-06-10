@@ -1,4 +1,4 @@
-﻿using HumanResources.Entity.Abstract;
+﻿using HumanResources.Entities.Abstract;
 using System.Linq.Expressions;
 
 namespace HumanResources.Core.DataAccess.Repository
