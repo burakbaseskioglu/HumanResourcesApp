@@ -12,7 +12,6 @@ namespace HumanResources.Entities.Concrete
         public DateTime DateOfBirth { get; set; }
         public string Nationality { get; set; }
         public string Password { get; set; }
-        public string PasswordAgain { get; set; }
-        public ICollection<Education> Educations { get; set; }
+        public string PasswordAgain { get; set; }     
     }
 }

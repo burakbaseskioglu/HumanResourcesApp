@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HumanResources.Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HumanResources.Entities.Concrete
 {
-    public class UserDetails
+    public class UserDetail : BaseEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }
@@ -17,5 +18,11 @@ namespace HumanResources.Entities.Concrete
         public string BloodType { get; set; }
         public string MaritalStatus { get; set; }
         public string DrivingLicense { get; set; }
+        public ICollection<Education> Educations { get; set; }
+        public ICollection<Work> Works { get; set; }
+        public ICollection<Language> Languages { get; set; }
+        public ICollection<Certificate> Certificates { get; set; }
+        public ICollection<Course> Courses { get; set; }
+        public ICollection<Skill> Skills { get; set; }
     }
 }
