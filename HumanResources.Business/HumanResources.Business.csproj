@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Abstract\" />
-    <Folder Include="Concrete\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HumanResources.DataAccess\HumanResources.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

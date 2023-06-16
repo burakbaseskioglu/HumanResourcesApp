@@ -1,4 +1,4 @@
-﻿using HumanResources.Entities.Abstract;
+﻿using HumanResources.Core;
 
 namespace HumanResources.Entities.Concrete
 {
