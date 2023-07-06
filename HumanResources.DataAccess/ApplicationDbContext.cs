@@ -7,16 +7,18 @@ namespace HumanResources.DataAccess
 {
     public class ApplicationDbContext : DbContext
     {
+        private readonly IConfiguration _configuration;
 
-        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        //{
-        //    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        //}
+        public ApplicationDbContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=HumanResources;");
+            optionsBuilder.UseNpgsql(_configuration.GetSection("Settings")?.Get<Settings>()?.ConnectionStrings);
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 

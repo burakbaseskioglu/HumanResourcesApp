@@ -1,23 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HumanResources.Entities.Abstract;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Linq.Expressions;
 
-namespace HumanResources.Core.DataAccess.Repository.EntityFramework
+namespace HumanResources.DataAccess.Repository.EntityFramework
 {
-    public class EfRepositoryBase<T, TContext> : IRepository<T>, IDisposable where T : BaseEntity where TContext : DbContext, new()
+    public class EfRepositoryBase<T> : IRepository<T>, IDisposable where T : BaseEntity
     {
+        private static ApplicationDbContext _context;
+
+        private readonly IConfiguration _configuration;
+
+        public EfRepositoryBase(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void Delete(T entity)
         {
-            using (var _context = new TContext())
+            using (_context = new(_configuration))
             {
                 var deletedEntity = _context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
+                entity.DeletedDate = DateTime.Now;
+                entity.DeletedUser = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }
 
         public T Get(Expression<Func<T, bool>> expression)
         {
-            using (var _context = new TContext())
+            using (_context = new(_configuration))
             {
                 return _context.Set<T>().Find(expression)!;
             }
@@ -25,7 +38,7 @@ namespace HumanResources.Core.DataAccess.Repository.EntityFramework
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> expression = null)
         {
-            using (var _context = new TContext())
+            using (_context = new(_configuration))
             {
                 return expression == null ? _context.Set<T>().ToList() : _context.Set<T>().Where(expression).ToList();
             }
@@ -33,20 +46,24 @@ namespace HumanResources.Core.DataAccess.Repository.EntityFramework
 
         public void Insert(T entity)
         {
-            using (var _context = new TContext())
+            using (_context = new(_configuration))
             {
                 var addedEntity = _context.Entry(entity);
                 addedEntity.State = EntityState.Added;
+                entity.CreatedDate = DateTime.Now;
+                entity.CreatedUser = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }
 
         public void Update(T entity)
         {
-            using (var _context = new TContext())
+            using (_context = new(_configuration))
             {
                 var updatedEntity = _context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
+                entity.ModifiedDate = DateTime.Now;
+                entity.ModifiedUser = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }

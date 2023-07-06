@@ -1,6 +1,5 @@
 ﻿using HumanResources.Business.Abstract;
 using HumanResources.Entities;
-using HumanResources.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResources.WebAPI.Controllers
@@ -14,6 +13,13 @@ namespace HumanResources.WebAPI.Controllers
         public LanguageController(ILanguageBusiness languageBusiness)
         {
             _languageBusiness = languageBusiness;
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var result = _languageBusiness.GetAll();
+            return Ok(result);
         }
 
         [HttpPost]

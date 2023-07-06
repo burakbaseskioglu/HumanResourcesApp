@@ -1,7 +1,7 @@
-﻿using HumanResources.Core;
+﻿using HumanResources.Entities.Abstract;
 using System.Linq.Expressions;
 
-namespace HumanResources.Core.DataAccess.Repository
+namespace HumanResources.DataAccess.Repository
 {
     public interface IRepository<T> where T : BaseEntity
     {

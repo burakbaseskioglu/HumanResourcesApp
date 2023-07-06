@@ -1,4 +1,4 @@
-﻿namespace HumanResources.Core
+﻿namespace HumanResources.Entities.Abstract
 {
     public abstract class BaseEntity
     {

@@ -1,4 +1,4 @@
-﻿using HumanResources.Core.DataAccess.Repository;
+﻿using HumanResources.DataAccess.Repository;
 using HumanResources.Entities.Concrete;
 
 namespace HumanResources.DataAccess.Abstract

@@ -1,10 +1,10 @@
 using HumanResources.Business.Abstract;
 using HumanResources.Business.Concrete;
 using HumanResources.Core.Configuration;
-using HumanResources.DataAccess;
+using HumanResources.Core.MappingProfile;
 using HumanResources.DataAccess.Abstract;
 using HumanResources.DataAccess.Concrete;
-using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<ILanguageRepository, LanguageRepository>();
 builder.Services.AddSingleton<ILanguageBusiness, LanguageBusiness>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
