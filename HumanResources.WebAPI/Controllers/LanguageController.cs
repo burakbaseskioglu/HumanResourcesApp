@@ -1,5 +1,5 @@
 ﻿using HumanResources.Business.Abstract;
-using HumanResources.Entities;
+using HumanResources.Entities.Dto.Language;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResources.WebAPI.Controllers
@@ -18,15 +18,25 @@ namespace HumanResources.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var result = _languageBusiness.GetAll();
-            return Ok(result);
+            return Ok(_languageBusiness.GetAll());
         }
 
         [HttpPost]
         public IActionResult Insert(LanguageInsertDto languageInsertDto)
+        {        
+            return Ok(_languageBusiness.Add(languageInsertDto));
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(Guid languageId)
+        {           
+            return Ok(_languageBusiness.Delete(languageId));
+        }
+
+        [HttpPut]
+        public IActionResult Update(LanguageUpdateDto languageUpdateDto)
         {
-            _languageBusiness.Add(languageInsertDto);
-            return Ok();
+            return Ok(_languageBusiness.Update(languageUpdateDto));
         }
     }
 }

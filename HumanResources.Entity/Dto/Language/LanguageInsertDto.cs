@@ -1,4 +1,4 @@
-﻿namespace HumanResources.Entities
+﻿namespace HumanResources.Entities.Dto.Language
 {
     public class LanguageInsertDto
     {

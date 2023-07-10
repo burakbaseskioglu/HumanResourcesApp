@@ -32,7 +32,7 @@ namespace HumanResources.DataAccess.Repository.EntityFramework
         {
             using (_context = new(_configuration))
             {
-                return _context.Set<T>().Find(expression)!;
+                return _context.Set<T>().FirstOrDefault(expression)!;
             }
         }
 
@@ -87,6 +87,18 @@ namespace HumanResources.DataAccess.Repository.EntityFramework
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void SoftDelete(T entity)
+        {
+            using (_context = new(_configuration))
+            {
+                var deletedEntity = _context.Entry(entity);
+                entity.DeletedDate = DateTime.Now;
+                entity.DeletedUser = Guid.NewGuid();
+                deletedEntity.State = EntityState.Modified;
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ namespace HumanResources.DataAccess.Repository
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void SoftDelete(T entity);
         T Get(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll(Expression<Func<T, bool>> expression = null);
     }

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using HumanResources.Business.Abstract;
+using HumanResources.Core.Utilities.Result;
 using HumanResources.DataAccess.Abstract;
-using HumanResources.Entities;
 using HumanResources.Entities.Concrete;
+using HumanResources.Entities.Dto.Language;
 
 namespace HumanResources.Business.Concrete
 {
@@ -17,16 +18,52 @@ namespace HumanResources.Business.Concrete
             _mapper = mapper;
         }
 
-        public void Add(LanguageInsertDto languageInsertDto)
+        public IResult Add(LanguageInsertDto languageInsertDto)
         {
             var language = _mapper.Map<Language>(languageInsertDto);
             _languageRepository.Insert(language);
+            return new SuccessResult();
         }
 
-        public IEnumerable<LanguageDto> GetAll()
+        public IResult Delete(Guid languageId)
+        {
+            var language = _languageRepository.Get(x => x.Id == languageId);
+
+            if (language != null)
+            {
+                _languageRepository.SoftDelete(language);
+                return new SuccessResult();
+            }
+
+            return new ErrorResult("Yabancı dil bilgisi bulunamadı.");
+        }
+
+        public IDataResult<IEnumerable<LanguageDto>> GetAll()
         {
             var languages = _languageRepository.GetAll();
-            return _mapper.Map<IEnumerable<LanguageDto>>(languages);
+
+            if (languages.Any())
+            {
+                var addedLanguages = _mapper.Map<IEnumerable<LanguageDto>>(languages);
+                return new SuccessDataResult<IEnumerable<LanguageDto>>(addedLanguages);
+            }
+
+            return new ErrorDataResult<IEnumerable<LanguageDto>>("Yabancı dil bilgisi bulunamadı.");
+        }
+
+        public IResult Update(LanguageUpdateDto languageUpdateDto)
+        {
+            var language = _languageRepository.Get(x => x.Id == languageUpdateDto.Id);
+
+            if (language != null)
+            {
+                var newLanguage = _mapper.Map(languageUpdateDto, language);
+                _languageRepository.Update(newLanguage);
+
+                return new SuccessResult();
+            }
+
+            return new ErrorResult("Yabancı dil bilgisi bulunamadı.");
         }
     }
 }

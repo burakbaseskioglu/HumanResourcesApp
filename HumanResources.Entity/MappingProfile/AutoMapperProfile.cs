@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using HumanResources.Entities;
 using HumanResources.Entities.Concrete;
+using HumanResources.Entities.Dto.Language;
 
 namespace HumanResources.Core.MappingProfile
 {
@@ -10,6 +10,7 @@ namespace HumanResources.Core.MappingProfile
         {
             CreateMap<LanguageInsertDto, Language>();
             CreateMap<Language, LanguageDto>();
+            CreateMap<LanguageUpdateDto, Language>();
         }
     }
 }
