@@ -1,10 +1,10 @@
-﻿namespace HumanResources.Entities.Dto.Language
+﻿namespace HumanResources.Entities.Dto.Skill
 {
-    public class LanguageUpdateDto
+    public class SkillDto
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public string LanguageName { get; set; }
+        public string SkillName { get; set; }
         public string Level { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace HumanResources.Business.Abstract
     public interface ICourseBusiness
     {
         IResult Add(CourseInsertDto courseInsertDto);
-        IDataResult<IEnumerable<CourseDto>> GetAll();
+        IDataResult<IEnumerable<Entities.Dto.Course.CourseDto>> GetAll();
         IResult Delete(Guid languageId);
         IResult Update(CourseUpdateDto courseUpdateDto);
     }

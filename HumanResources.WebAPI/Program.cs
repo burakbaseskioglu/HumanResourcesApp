@@ -2,9 +2,7 @@ using HumanResources.Business.Abstract;
 using HumanResources.Business.Concrete;
 using HumanResources.Core.Configuration;
 using HumanResources.Core.MappingProfile;
-using HumanResources.DataAccess.Abstract;
-using HumanResources.DataAccess.Concrete;
-using System.Reflection;
+using HumanResources.DataAccess.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +16,12 @@ builder.Services.AddSwaggerGen();
 //{
 //    options.UseNpgsql(builder.Configuration.GetSection("Settings")?.Get<Settings>()?.ConnectionStrings);
 //});
+builder.Services.AddDataAccessServices();
 
-builder.Services.AddSingleton<ILanguageRepository, LanguageRepository>();
 builder.Services.AddSingleton<ILanguageBusiness, LanguageBusiness>();
+builder.Services.AddSingleton<ICourseBusiness, CourseBusiness>();
+builder.Services.AddSingleton<ISkillBusiness, SkillBusiness>();
+builder.Services.AddSingleton<ICertificateBusiness, CertificateBusiness>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

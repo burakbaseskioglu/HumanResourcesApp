@@ -44,8 +44,8 @@ namespace HumanResources.Business.Concrete
 
             if (languages.Any())
             {
-                var addedLanguages = _mapper.Map<IEnumerable<LanguageDto>>(languages);
-                return new SuccessDataResult<IEnumerable<LanguageDto>>(addedLanguages);
+                var languageList = _mapper.Map<IEnumerable<LanguageDto>>(languages);
+                return new SuccessDataResult<IEnumerable<LanguageDto>>(languageList);
             }
 
             return new ErrorDataResult<IEnumerable<LanguageDto>>("Yabancı dil bilgisi bulunamadı.");
@@ -57,8 +57,8 @@ namespace HumanResources.Business.Concrete
 
             if (language != null)
             {
-                var newLanguage = _mapper.Map(languageUpdateDto, language);
-                _languageRepository.Update(newLanguage);
+                var updatedLanguage = _mapper.Map(languageUpdateDto, language);
+                _languageRepository.Update(updatedLanguage);
 
                 return new SuccessResult();
             }
