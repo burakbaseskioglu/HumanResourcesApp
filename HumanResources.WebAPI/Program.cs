@@ -1,15 +1,33 @@
+using HumanResources.Business.Abstract;
+using HumanResources.Business.Concrete;
+using HumanResources.Core.Configuration;
+using HumanResources.Core.MappingProfile;
+using HumanResources.DataAccess.Extension;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.ConfigureAppSettings();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//{
+//    options.UseNpgsql(builder.Configuration.GetSection("Settings")?.Get<Settings>()?.ConnectionStrings);
+//});
+builder.Services.AddDataAccessServices();
 
-// Configure the HTTP request pipeline.
+builder.Services.AddSingleton<ILanguageBusiness, LanguageBusiness>();
+builder.Services.AddSingleton<ICourseBusiness, CourseBusiness>();
+builder.Services.AddSingleton<ISkillBusiness, SkillBusiness>();
+builder.Services.AddSingleton<ICertificateBusiness, CertificateBusiness>();
+builder.Services.AddSingleton<IWorkBusiness, WorkBusiness>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+var app = builder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

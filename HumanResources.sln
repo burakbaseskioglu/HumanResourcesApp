@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.WebAPI", "HumanResources.WebAPI\HumanResources.WebAPI.csproj", "{08C15187-8ABD-4A6F-B012-95805C72E50E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.WebAPI", "HumanResources.WebAPI\HumanResources.WebAPI.csproj", "{08C15187-8ABD-4A6F-B012-95805C72E50E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.Entity", "HumanResources.Entity\HumanResources.Entity.csproj", "{8CA78D2E-47A4-43F5-A32F-AEC7AB337395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Entities", "HumanResources.Entity\HumanResources.Entities.csproj", "{8CA78D2E-47A4-43F5-A32F-AEC7AB337395}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.DataAccess", "HumanResources.DataAccess\HumanResources.DataAccess.csproj", "{9E03E5B4-9CD2-467E-BD12-E3934FEDADA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.DataAccess", "HumanResources.DataAccess\HumanResources.DataAccess.csproj", "{9E03E5B4-9CD2-467E-BD12-E3934FEDADA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.Core", "HumanResources.Core\HumanResources.Core.csproj", "{61E87D5B-398E-495C-BD7A-12309FBC5479}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Core", "HumanResources.Core\HumanResources.Core.csproj", "{61E87D5B-398E-495C-BD7A-12309FBC5479}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.Business", "HumanResources.Business\HumanResources.Business.csproj", "{E1651112-93F5-473F-A6F7-A25D46E7C76D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Business", "HumanResources.Business\HumanResources.Business.csproj", "{E1651112-93F5-473F-A6F7-A25D46E7C76D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
