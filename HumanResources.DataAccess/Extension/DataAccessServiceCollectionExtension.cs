@@ -12,6 +12,7 @@ namespace HumanResources.DataAccess.Extension
             services.AddSingleton<ICourseRepository, CourseRepository>();
             services.AddSingleton<ISkillRepository, SkillRepository>();
             services.AddSingleton<ICertificateRepository, CertificateRepository>();
+            services.AddSingleton<IWorkRepository, WorkRepository>();
         }
     }
 }

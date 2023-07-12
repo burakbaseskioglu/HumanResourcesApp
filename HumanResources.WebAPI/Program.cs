@@ -22,6 +22,7 @@ builder.Services.AddSingleton<ILanguageBusiness, LanguageBusiness>();
 builder.Services.AddSingleton<ICourseBusiness, CourseBusiness>();
 builder.Services.AddSingleton<ISkillBusiness, SkillBusiness>();
 builder.Services.AddSingleton<ICertificateBusiness, CertificateBusiness>();
+builder.Services.AddSingleton<IWorkBusiness, WorkBusiness>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
