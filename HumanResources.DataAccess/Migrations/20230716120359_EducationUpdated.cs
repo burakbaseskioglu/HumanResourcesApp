@@ -6,11 +6,47 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HumanResources.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class EducationUpdated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "EducationDegrees",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EducationDegrees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EducationTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EducationTypes", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -21,16 +57,16 @@ namespace HumanResources.DataAccess.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
                     IdentityNumber = table.Column<long>(type: "bigint", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Nationality = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
                     PasswordAgain = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,14 +84,14 @@ namespace HumanResources.DataAccess.Migrations
                     Address = table.Column<string>(type: "text", nullable: false),
                     MilitaryServiceStatus = table.Column<string>(type: "text", nullable: false),
                     BloodType = table.Column<string>(type: "text", nullable: false),
-                    MaritalStatus = table.Column<string>(type: "text", nullable: false),
-                    DrivingLicense = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    MaritalStatus = table.Column<string>(type: "text", nullable: true),
+                    DrivingLicense = table.Column<string>(type: "text", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,14 +112,14 @@ namespace HumanResources.DataAccess.Migrations
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CertificateName = table.Column<string>(type: "text", nullable: false),
                     Points = table.Column<string>(type: "text", nullable: false),
-                    ValidityDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ValidityDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserDetailId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,14 +145,14 @@ namespace HumanResources.DataAccess.Migrations
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     CourseName = table.Column<string>(type: "text", nullable: false),
                     Company = table.Column<string>(type: "text", nullable: false),
-                    StartedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StartedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserDetailId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -139,30 +175,40 @@ namespace HumanResources.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EducationTypeId = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Department = table.Column<string>(type: "text", nullable: false),
-                    EducationLevel = table.Column<string>(type: "text", nullable: false),
-                    Country = table.Column<string>(type: "text", nullable: false),
-                    City = table.Column<string>(type: "text", nullable: false),
-                    EducationType = table.Column<string>(type: "text", nullable: false),
+                    EducationStatus = table.Column<int>(type: "integer", nullable: false),
                     Faculty = table.Column<string>(type: "text", nullable: false),
                     GraduationDegree = table.Column<string>(type: "text", nullable: false),
                     StartDate = table.Column<string>(type: "text", nullable: false),
                     EndDate = table.Column<string>(type: "text", nullable: false),
+                    EducationTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    EducationDegreeId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserDetailId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Educations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Educations_EducationDegrees_EducationDegreeId",
+                        column: x => x.EducationDegreeId,
+                        principalTable: "EducationDegrees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Educations_EducationTypes_EducationTypeId",
+                        column: x => x.EducationTypeId,
+                        principalTable: "EducationTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Educations_UserDetails_UserDetailId",
                         column: x => x.UserDetailId,
@@ -185,12 +231,12 @@ namespace HumanResources.DataAccess.Migrations
                     LanguageName = table.Column<string>(type: "text", nullable: false),
                     Level = table.Column<string>(type: "text", nullable: false),
                     UserDetailId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -217,12 +263,12 @@ namespace HumanResources.DataAccess.Migrations
                     SkillName = table.Column<string>(type: "text", nullable: false),
                     Level = table.Column<string>(type: "text", nullable: false),
                     UserDetailId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -250,18 +296,18 @@ namespace HumanResources.DataAccess.Migrations
                     Industry = table.Column<string>(type: "text", nullable: false),
                     HowToWork = table.Column<string>(type: "text", nullable: false),
                     StillInThisBusiness = table.Column<bool>(type: "boolean", nullable: false),
-                    StartedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StartedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UnitWorked = table.Column<string>(type: "text", nullable: false),
                     Position = table.Column<string>(type: "text", nullable: false),
                     ShortJobDescription = table.Column<string>(type: "text", nullable: false),
                     UserDetailId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedUser = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletedUser = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -298,6 +344,16 @@ namespace HumanResources.DataAccess.Migrations
                 name: "IX_Courses_UserId",
                 table: "Courses",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Educations_EducationDegreeId",
+                table: "Educations",
+                column: "EducationDegreeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Educations_EducationTypeId",
+                table: "Educations",
+                column: "EducationTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Educations_UserDetailId",
@@ -365,6 +421,12 @@ namespace HumanResources.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Works");
+
+            migrationBuilder.DropTable(
+                name: "EducationDegrees");
+
+            migrationBuilder.DropTable(
+                name: "EducationTypes");
 
             migrationBuilder.DropTable(
                 name: "UserDetails");

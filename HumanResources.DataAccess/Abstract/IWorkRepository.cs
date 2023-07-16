@@ -5,5 +5,6 @@ namespace HumanResources.DataAccess.Abstract
 {
     public interface IWorkRepository : IRepository<Work>
     {
+        List<Work> GetAllWorksWithUserInfo();
     }
 }

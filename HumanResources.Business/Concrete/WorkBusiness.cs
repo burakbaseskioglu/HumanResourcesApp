@@ -40,7 +40,7 @@ namespace HumanResources.Business.Concrete
 
         public IDataResult<IEnumerable<WorkDto>> GetAll()
         {
-            var works = _workRepository.GetAll();
+            var works = _workRepository.GetAllWorksWithUserInfo();
 
             if (works.Any())
             {

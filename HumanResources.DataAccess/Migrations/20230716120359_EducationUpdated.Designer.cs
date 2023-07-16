@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HumanResources.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230616204234_LegacyTimestamp")]
-    partial class LegacyTimestamp
+    [Migration("20230716120359_EducationUpdated")]
+    partial class EducationUpdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,14 +131,6 @@ namespace HumanResources.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -155,17 +147,14 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("EducationLevel")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("EducationDegreeId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("EducationType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("EducationStatus")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("EducationTypeId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("EducationTypeId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("EndDate")
                         .IsRequired()
@@ -205,11 +194,81 @@ namespace HumanResources.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EducationDegreeId");
+
+                    b.HasIndex("EducationTypeId");
+
                     b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Educations");
+                });
+
+            modelBuilder.Entity("HumanResources.Entities.Concrete.EducationDegree", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DeletedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationDegrees");
+                });
+
+            modelBuilder.Entity("HumanResources.Entities.Concrete.EducationType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DeletedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationTypes");
                 });
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Language", b =>
@@ -532,6 +591,18 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Education", b =>
                 {
+                    b.HasOne("HumanResources.Entities.Concrete.EducationDegree", "EducationDegree")
+                        .WithMany()
+                        .HasForeignKey("EducationDegreeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HumanResources.Entities.Concrete.EducationType", "EducationType")
+                        .WithMany()
+                        .HasForeignKey("EducationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
                         .WithMany("Educations")
                         .HasForeignKey("UserDetailId");
@@ -541,6 +612,10 @@ namespace HumanResources.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EducationDegree");
+
+                    b.Navigation("EducationType");
 
                     b.Navigation("User");
                 });

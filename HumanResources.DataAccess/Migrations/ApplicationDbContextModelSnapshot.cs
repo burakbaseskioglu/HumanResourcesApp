@@ -54,9 +54,6 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UserDetailId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
@@ -64,8 +61,6 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
@@ -107,15 +102,10 @@ namespace HumanResources.DataAccess.Migrations
                     b.Property<DateTime>("StartedDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid?>("UserDetailId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
@@ -127,14 +117,6 @@ namespace HumanResources.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
@@ -152,17 +134,14 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("EducationLevel")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("EducationDegreeId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("EducationType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("EducationStatus")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("EducationTypeId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("EducationTypeId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("EndDate")
                         .IsRequired()
@@ -190,23 +169,84 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("UserDetailId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserDetailId");
+                    b.HasIndex("EducationDegreeId");
+
+                    b.HasIndex("EducationTypeId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Educations");
+                });
+
+            modelBuilder.Entity("HumanResources.Entities.Concrete.EducationDegree", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DeletedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationDegrees");
+                });
+
+            modelBuilder.Entity("HumanResources.Entities.Concrete.EducationType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DeletedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationTypes");
                 });
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Language", b =>
@@ -241,15 +281,10 @@ namespace HumanResources.DataAccess.Migrations
                     b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserDetailId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
@@ -288,15 +323,10 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UserDetailId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
@@ -482,15 +512,10 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UserDetailId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
@@ -499,12 +524,8 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Certificate", b =>
                 {
-                    b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
-                        .WithMany("Certificates")
-                        .HasForeignKey("UserDetailId");
-
                     b.HasOne("HumanResources.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Certificates")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -514,12 +535,8 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Course", b =>
                 {
-                    b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("UserDetailId");
-
                     b.HasOne("HumanResources.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -529,27 +546,35 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Education", b =>
                 {
-                    b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
-                        .WithMany("Educations")
-                        .HasForeignKey("UserDetailId");
+                    b.HasOne("HumanResources.Entities.Concrete.EducationDegree", "EducationDegree")
+                        .WithMany()
+                        .HasForeignKey("EducationDegreeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HumanResources.Entities.Concrete.EducationType", "EducationType")
+                        .WithMany()
+                        .HasForeignKey("EducationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HumanResources.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Educations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EducationDegree");
+
+                    b.Navigation("EducationType");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Language", b =>
                 {
-                    b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
-                        .WithMany("Languages")
-                        .HasForeignKey("UserDetailId");
-
                     b.HasOne("HumanResources.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Languages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -559,12 +584,8 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Skill", b =>
                 {
-                    b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
-                        .WithMany("Skills")
-                        .HasForeignKey("UserDetailId");
-
                     b.HasOne("HumanResources.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Skills")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -585,12 +606,8 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Work", b =>
                 {
-                    b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
-                        .WithMany("Works")
-                        .HasForeignKey("UserDetailId");
-
                     b.HasOne("HumanResources.Entities.Concrete.User", "User")
-                        .WithMany()
+                        .WithMany("Works")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -598,7 +615,7 @@ namespace HumanResources.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HumanResources.Entities.Concrete.UserDetail", b =>
+            modelBuilder.Entity("HumanResources.Entities.Concrete.User", b =>
                 {
                     b.Navigation("Certificates");
 

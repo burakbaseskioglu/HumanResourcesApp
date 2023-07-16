@@ -1,11 +1,13 @@
-﻿using HumanResources.Entities.Abstract;
+﻿using HumanResources.Entities.Dto.User;
 
-namespace HumanResources.Entities.Concrete
+namespace HumanResources.Entities.Dto.Education
 {
-    public class Education : BaseEntity
+    public class EducationDto
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public UserDto User { get; set; }
+        public string Status { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }
         public int EducationStatus { get; set; }
@@ -14,8 +16,8 @@ namespace HumanResources.Entities.Concrete
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public Guid EducationTypeId { get; set; }
-        public EducationType EducationType { get; set; }
+        public string EducationType { get; set; }
         public Guid EducationDegreeId { get; set; }
-        public EducationDegree EducationDegree { get; set; }
+        public string EducationDegree { get; set; }
     }
 }

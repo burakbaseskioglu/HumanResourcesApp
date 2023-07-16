@@ -11,5 +11,6 @@ namespace HumanResources.DataAccess.Repository
         void SoftDelete(T entity);
         T Get(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll(Expression<Func<T, bool>> expression = null);
+        IQueryable<T> IncludeMany(Expression<Func<T, object>> include);
     }
 }

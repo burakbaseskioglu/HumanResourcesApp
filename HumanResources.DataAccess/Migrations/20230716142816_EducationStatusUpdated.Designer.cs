@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HumanResources.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230615195906_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230716142816_EducationStatusUpdated")]
+    partial class EducationStatusUpdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,21 +36,21 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Points")
@@ -64,7 +64,7 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("ValidityDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -90,25 +90,25 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("StartedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid?>("UserDetailId")
                         .HasColumnType("uuid");
@@ -131,41 +131,30 @@ namespace HumanResources.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Department")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("EducationLevel")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("EducationDegreeId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("EducationType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("EducationStatus")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("EducationTypeId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("EducationTypeId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("EndDate")
                         .IsRequired()
@@ -179,10 +168,10 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -190,10 +179,6 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -205,11 +190,81 @@ namespace HumanResources.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EducationDegreeId");
+
+                    b.HasIndex("EducationTypeId");
+
                     b.HasIndex("UserDetailId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Educations");
+                });
+
+            modelBuilder.Entity("HumanResources.Entities.Concrete.EducationDegree", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DeletedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationDegrees");
+                });
+
+            modelBuilder.Entity("HumanResources.Entities.Concrete.EducationType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("DeletedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedUser")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EducationTypes");
                 });
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Language", b =>
@@ -219,15 +274,15 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("LanguageName")
@@ -238,10 +293,10 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("UserDetailId")
@@ -266,25 +321,25 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Level")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("SkillName")
@@ -313,18 +368,18 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
@@ -342,10 +397,10 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Nationality")
@@ -384,36 +439,34 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("DrivingLicense")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("boolean");
 
                     b.Property<string>("MaritalStatus")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("MilitaryServiceStatus")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("PlaceOfBirth")
@@ -441,19 +494,19 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("CreatedUser")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("DeletedUser")
+                    b.Property<Guid?>("DeletedUser")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("HowToWork")
                         .IsRequired()
@@ -463,10 +516,10 @@ namespace HumanResources.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("ModifiedUser")
+                    b.Property<Guid?>("ModifiedUser")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Position")
@@ -478,7 +531,7 @@ namespace HumanResources.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("StartedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("StillInThisBusiness")
                         .HasColumnType("boolean");
@@ -534,6 +587,18 @@ namespace HumanResources.DataAccess.Migrations
 
             modelBuilder.Entity("HumanResources.Entities.Concrete.Education", b =>
                 {
+                    b.HasOne("HumanResources.Entities.Concrete.EducationDegree", "EducationDegree")
+                        .WithMany()
+                        .HasForeignKey("EducationDegreeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HumanResources.Entities.Concrete.EducationType", "EducationType")
+                        .WithMany()
+                        .HasForeignKey("EducationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HumanResources.Entities.Concrete.UserDetail", null)
                         .WithMany("Educations")
                         .HasForeignKey("UserDetailId");
@@ -543,6 +608,10 @@ namespace HumanResources.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("EducationDegree");
+
+                    b.Navigation("EducationType");
 
                     b.Navigation("User");
                 });

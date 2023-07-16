@@ -5,5 +5,6 @@ namespace HumanResources.DataAccess.Abstract
 {
     public interface ICertificateRepository : IRepository<Certificate>
     {
+        List<Certificate> GetAllCertificatesWithUserInfo();
     }
 }

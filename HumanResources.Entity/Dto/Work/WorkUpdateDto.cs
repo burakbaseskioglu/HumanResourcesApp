@@ -1,4 +1,5 @@
 ﻿using HumanResources.Entities.Concrete;
+using HumanResources.Entities.Dto.User;
 
 namespace HumanResources.Entities.Dto.Work
 {
@@ -6,7 +7,6 @@ namespace HumanResources.Entities.Dto.Work
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public User User { get; set; }
         public string CompanyName { get; set; }
         public string Industry { get; set; }
         public string HowToWork { get; set; }

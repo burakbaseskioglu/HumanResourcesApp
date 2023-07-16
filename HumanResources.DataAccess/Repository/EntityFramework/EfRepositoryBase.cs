@@ -8,6 +8,7 @@ namespace HumanResources.DataAccess.Repository.EntityFramework
     public class EfRepositoryBase<T> : IRepository<T>, IDisposable where T : BaseEntity
     {
         private static ApplicationDbContext _context;
+        private DbSet<T> _entities;
 
         private readonly IConfiguration _configuration;
 
@@ -98,6 +99,15 @@ namespace HumanResources.DataAccess.Repository.EntityFramework
                 entity.DeletedUser = Guid.NewGuid();
                 deletedEntity.State = EntityState.Modified;
                 _context.SaveChanges();
+            }
+        }
+
+        public IQueryable<T> IncludeMany(Expression<Func<T, object>> include)
+        {
+            using (_context = new(_configuration))
+            {
+                _entities = _context.Set<T>();
+                return _entities.Include(include);
             }
         }
     }

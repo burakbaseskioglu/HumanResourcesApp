@@ -3,8 +3,7 @@ using HumanResources.Entities.Concrete;
 
 namespace HumanResources.DataAccess.Abstract
 {
-    public interface ICourseRepository : IRepository<Course>
+    public interface IEducationTypeRepository : IRepository<EducationType>
     {
-        List<Course> GetAllCoursesWithUserInfo();
     }
 }

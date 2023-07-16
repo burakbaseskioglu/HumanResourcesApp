@@ -30,5 +30,7 @@ namespace HumanResources.DataAccess
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Work> Works { get; set; }
+        public DbSet<EducationType> EducationTypes { get; set; }
+        public DbSet<EducationDegree> EducationDegrees { get; set; }
     }
 }
