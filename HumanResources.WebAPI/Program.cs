@@ -1,4 +1,5 @@
 using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
 using HumanResources.Business.Concrete;
 using HumanResources.Core.Configuration;
 using HumanResources.Core.MappingProfile;
@@ -24,6 +25,8 @@ builder.Services.AddSingleton<ISkillBusiness, SkillBusiness>();
 builder.Services.AddSingleton<ICertificateBusiness, CertificateBusiness>();
 builder.Services.AddSingleton<IWorkBusiness, WorkBusiness>();
 builder.Services.AddSingleton<IEducationBusiness, EducationBusiness>();
+
+builder.Services.AddScoped<ValidationFilter>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

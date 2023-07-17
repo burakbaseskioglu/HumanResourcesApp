@@ -1,4 +1,7 @@
-﻿using HumanResources.Business.Abstract;
+﻿using HumanResources.Business;
+using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Attributes;
 using HumanResources.Entities.Dto.Education;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +30,8 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(_educationBusiness.GetEducationsByUserId(userId));
         }
 
+        [ServiceFilter(typeof(ValidationFilter))]
+        [ValidationAttribute(typeof(ValidationRule))]
         [HttpPost]
         public IActionResult Insert(EducationInsertDto educationInsertDto)
         {
