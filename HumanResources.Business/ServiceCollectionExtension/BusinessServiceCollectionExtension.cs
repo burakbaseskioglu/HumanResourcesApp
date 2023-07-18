@@ -1,0 +1,21 @@
+﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Concrete;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace HumanResources.Business.ServiceCollectionExtension
+{
+    public static class BusinessServiceCollectionExtension
+    {
+        public static void AddBusinessServices(this IServiceCollection services)
+        {
+            services.AddSingleton<ILanguageBusiness, LanguageBusiness>();
+            services.AddSingleton<ICourseBusiness, CourseBusiness>();
+            services.AddSingleton<ISkillBusiness, SkillBusiness>();
+            services.AddSingleton<ICertificateBusiness, CertificateBusiness>();
+            services.AddSingleton<IWorkBusiness, WorkBusiness>();
+            services.AddSingleton<IEducationBusiness, EducationBusiness>();
+            services.AddScoped<ValidationFilter>();
+        }
+    }
+}

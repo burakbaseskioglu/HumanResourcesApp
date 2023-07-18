@@ -5,7 +5,7 @@ namespace HumanResources.Business.Validation
 {
     public static class ValidationHelper
     {
-        public static ValidationResult Validate(Type type, object[] objects)
+        public static ValidationResult Validate(Type type, object[] validationObjects)
         {
             //IsAssignableFrom(Type type) : Belirtilen türün, geçerli type nesnesi tarafından temsil edilen türe atanıp atanamayacağını gösterir.
             //Activator.CreateInstance(type) metodu ile type nesnesinin örneğini oluşturuyoruz. Ardından IValidator tipine cast ediyoruz.
@@ -15,26 +15,25 @@ namespace HumanResources.Business.Validation
 
             if (!typeof(IValidator).IsAssignableFrom(type))
             {
-                throw new Exception("");
+                throw new Exception("Bu geçerli bir doğrulama sınıfı değil.");
             }
 
-            var validator = (IValidator)Activator.CreateInstance(type);
-            ValidationResult result = new ValidationResult();
+            var validator = (IValidator)Activator.CreateInstance(type)!;
+            var validationResult = new ValidationResult();
 
-            foreach (var item in objects)
+            foreach (var item in validationObjects)
             {
-                
                 if (validator.CanValidateInstancesOfType(item.GetType()))
                 {
-                    result = validator.Validate(new ValidationContext<object>(item));
-                    if (!result.IsValid)
+                    validationResult = validator.Validate(new ValidationContext<object>(item));
+                    if (!validationResult.IsValid)
                     {
-                        return result;
+                        return validationResult;
                     }
                 }
             }
 
-            return result;
+            return validationResult;
         }
     }
 }
