@@ -6,7 +6,7 @@ namespace HumanResources.Entities.Dto.Education
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public UserDto User { get; set; }
+        public UserShortInfoDto User { get; set; }
         public string Status { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }

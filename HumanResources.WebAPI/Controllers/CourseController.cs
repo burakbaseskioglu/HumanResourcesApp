@@ -21,6 +21,12 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(_courseBusiness.GetAll());
         }
 
+        [HttpGet("{userId}")]
+        public IActionResult GetAllCoursesByUser(Guid userId)
+        {
+            return Ok(_courseBusiness.GetAllCoursesByUser(userId));
+        }
+
         [HttpPost]
         public IActionResult Insert(CourseInsertDto courseInsertDto)
         {

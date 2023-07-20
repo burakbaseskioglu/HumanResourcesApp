@@ -51,6 +51,19 @@ namespace HumanResources.Business.Concrete
             return new ErrorDataResult<IEnumerable<WorkDto>>("Çalışma bilgisi bulunamadı.");
         }
 
+        public IDataResult<IEnumerable<WorkDto>> GetAllWorksByUser(Guid userId)
+        {
+            var works = _workRepository.GetAllWorksWithUserInfo(x => x.UserId == userId);
+
+            if (works.Any())
+            {
+                var workList = _mapper.Map<IEnumerable<WorkDto>>(works);
+                return new SuccessDataResult<IEnumerable<WorkDto>>(workList);
+            }
+
+            return new ErrorDataResult<IEnumerable<WorkDto>>("Çalışma bilgisi bulunamadı.");
+        }
+
         public IResult Update(WorkUpdateDto workUpdateDto)
         {
             var work = _workRepository.Get(x => x.Id == workUpdateDto.Id);

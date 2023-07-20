@@ -48,7 +48,20 @@ namespace HumanResources.Business.Concrete
                 return new SuccessDataResult<IEnumerable<CertificateDto>>(certificateList);
             }
 
-            return new ErrorDataResult<IEnumerable<CertificateDto>>("Sertifika bilgisi bulunamadı.");
+            return new ErrorDataResult<IEnumerable<CertificateDto>>("Aktif Sertifika bilgisi bulunamadı.");
+        }
+
+        public IDataResult<IEnumerable<CertificateDto>> GetAllCertificatesByUser(Guid userId)
+        {
+            var certificates = _certificateRepository.GetAll(x => x.UserId == userId);
+
+            if (certificates.Any())
+            {
+                var certificateList = _mapper.Map<IEnumerable<CertificateDto>>(certificates);
+                return new SuccessDataResult<IEnumerable<CertificateDto>>(certificateList);
+            }
+
+            return new ErrorDataResult<IEnumerable<CertificateDto>>("Aktif Sertifika bilgisi bulunamadı.");
         }
 
         public IResult Update(CertificateUpdateDto certificateUpdateDto)
@@ -63,7 +76,7 @@ namespace HumanResources.Business.Concrete
                 return new SuccessResult();
             }
 
-            return new ErrorResult("Sertifika bilgisi bulunamadı.");
+            return new ErrorResult("Aktif Sertifika bilgisi bulunamadı.");
         }
     }
 }

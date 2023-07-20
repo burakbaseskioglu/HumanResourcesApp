@@ -21,6 +21,12 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(_certificateBusiness.GetAll());
         }
 
+        [HttpGet("{userId}")]
+        public IActionResult GetAllCertificatesByUser(Guid userId)
+        {
+            return Ok(_certificateBusiness.GetAllCertificatesByUser(userId));
+        }
+
         [HttpPost]
         public IActionResult Insert(CertificateInsertDto certificateInsertDto)
         {

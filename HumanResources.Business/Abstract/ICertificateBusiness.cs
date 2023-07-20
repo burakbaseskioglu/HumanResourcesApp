@@ -13,6 +13,7 @@ namespace HumanResources.Business.Abstract
     {
         IResult Add(CertificateInsertDto certificateInsertDto);
         IDataResult<IEnumerable<CertificateDto>> GetAll();
+        IDataResult<IEnumerable<CertificateDto>> GetAllCertificatesByUser(Guid userId);
         IResult Delete(Guid certificateId);
         IResult Update(CertificateUpdateDto certificateUpdateDto);
     }

@@ -21,6 +21,12 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(_workBusiness.GetAll());
         }
 
+        [HttpGet("{userId}")]
+        public IActionResult GetAllWorksByUser(Guid userId)
+        {
+            return Ok(_workBusiness.GetAllWorksByUser(userId));
+        }
+
         [HttpPost]
         public IActionResult Insert(WorkInsertDto workInsertDto)
         {

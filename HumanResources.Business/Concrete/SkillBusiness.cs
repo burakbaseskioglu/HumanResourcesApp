@@ -56,6 +56,19 @@ namespace HumanResources.Business.Concrete
             return new ErrorDataResult<IEnumerable<SkillDto>>("Beceri bilgisi bulunamadı.");
         }
 
+        public IDataResult<IEnumerable<SkillDto>> GetAllSkillsByUser(Guid userId)
+        {
+            var skills = _skillRepository.GetAll(x => x.UserId == userId);
+
+            if (skills.Any())
+            {
+                var skillList = _mapper.Map<IEnumerable<SkillDto>>(skills);
+                return new SuccessDataResult<IEnumerable<SkillDto>>(skillList);
+            }
+
+            return new ErrorDataResult<IEnumerable<SkillDto>>("Beceri bilgisi bulunamadı.");
+        }
+
         public IResult Update(SkillUpdateDto SkillUpdateDto)
         {
             var skill = _skillRepository.Get(x => x.Id == SkillUpdateDto.Id);

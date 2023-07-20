@@ -3,6 +3,7 @@ using HumanResources.DataAccess.Repository.EntityFramework;
 using HumanResources.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Linq.Expressions;
 
 namespace HumanResources.DataAccess.Concrete
 {
@@ -14,11 +15,11 @@ namespace HumanResources.DataAccess.Concrete
             _configuration = configuration;
         }
 
-        public List<Work> GetAllWorksWithUserInfo()
+        public List<Work> GetAllWorksWithUserInfo(Expression<Func<Work, bool>> expression = null)
         {
             using (ApplicationDbContext context = new(_configuration))
             {
-                return context.Works.Include(x => x.User).ToList();
+                return expression == null ? context.Works.Include(x => x.User).ToList() : context.Works.Include(x => x.User).Where(expression).ToList();
             }
         }
     }

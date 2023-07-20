@@ -51,6 +51,19 @@ namespace HumanResources.Business.Concrete
             return new ErrorDataResult<IEnumerable<CourseDto>>("Kurs bilgisi bulunamadı.");
         }
 
+        public IDataResult<IEnumerable<CourseDto>> GetAllCoursesByUser(Guid userId)
+        {
+            var courses = _courseRepository.GetAll(x => x.UserId == userId);
+
+            if (courses.Any())
+            {
+                var coursesList = _mapper.Map<IEnumerable<CourseDto>>(courses);
+                return new SuccessDataResult<IEnumerable<CourseDto>>(coursesList);
+            }
+
+            return new ErrorDataResult<IEnumerable<CourseDto>>("Kurs bilgisi bulunamadı.");
+        }
+
         public IResult Update(CourseUpdateDto courseUpdateDto)
         {
             var course = _courseRepository.Get(x => x.Id == courseUpdateDto.Id);

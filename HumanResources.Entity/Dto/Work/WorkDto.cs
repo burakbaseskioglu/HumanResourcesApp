@@ -6,7 +6,7 @@ namespace HumanResources.Entities.Dto.Work
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public UserDto User { get; set; }
+        public UserShortInfoDto User { get; set; }
         public string CompanyName { get; set; }
         public string Industry { get; set; }
         public string HowToWork { get; set; }

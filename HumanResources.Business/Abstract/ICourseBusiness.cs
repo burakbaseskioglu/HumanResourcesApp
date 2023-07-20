@@ -12,7 +12,8 @@ namespace HumanResources.Business.Abstract
     public interface ICourseBusiness
     {
         IResult Add(CourseInsertDto courseInsertDto);
-        IDataResult<IEnumerable<Entities.Dto.Course.CourseDto>> GetAll();
+        IDataResult<IEnumerable<CourseDto>> GetAll();
+        IDataResult<IEnumerable<CourseDto>> GetAllCoursesByUser(Guid userId);
         IResult Delete(Guid languageId);
         IResult Update(CourseUpdateDto courseUpdateDto);
     }

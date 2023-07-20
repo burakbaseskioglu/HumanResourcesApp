@@ -51,6 +51,19 @@ namespace HumanResources.Business.Concrete
             return new ErrorDataResult<IEnumerable<LanguageDto>>("Yabancı dil bilgisi bulunamadı.");
         }
 
+        public IDataResult<IEnumerable<LanguageDto>> GetAllLanguagesByUser(Guid userId)
+        {
+            var languages = _languageRepository.GetAll(x => x.UserId == userId);
+
+            if (languages.Any())
+            {
+                var languageList = _mapper.Map<IEnumerable<LanguageDto>>(languages);
+                return new SuccessDataResult<IEnumerable<LanguageDto>>(languageList);
+            }
+
+            return new ErrorDataResult<IEnumerable<LanguageDto>>("Yabancı dil bilgisi bulunamadı.");
+        }
+
         public IResult Update(LanguageUpdateDto languageUpdateDto)
         {
             var language = _languageRepository.Get(x => x.Id == languageUpdateDto.Id);

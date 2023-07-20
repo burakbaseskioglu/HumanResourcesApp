@@ -21,15 +21,21 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(_languageBusiness.GetAll());
         }
 
+        [HttpGet("{userId}")]
+        public IActionResult GetAllCoursesByUser(Guid userId)
+        {
+            return Ok(_languageBusiness.GetAllLanguagesByUser(userId));
+        }
+
         [HttpPost]
         public IActionResult Insert(LanguageInsertDto languageInsertDto)
-        {        
+        {
             return Ok(_languageBusiness.Add(languageInsertDto));
         }
 
         [HttpDelete]
         public IActionResult Delete(Guid languageId)
-        {           
+        {
             return Ok(_languageBusiness.Delete(languageId));
         }
 

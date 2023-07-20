@@ -1,4 +1,5 @@
 ﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.Concrete;
 using HumanResources.Entities.Dto.Skill;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,12 @@ namespace HumanResources.WebAPI.Controllers
         public IActionResult GetAll()
         {
             return Ok(_skillBusiness.GetAll());
+        }
+
+        [HttpGet("{userId}")]
+        public IActionResult GetAllSkillsByUser(Guid userId)
+        {
+            return Ok(_skillBusiness.GetAllSkillsByUser(userId));
         }
 
         [HttpPost]

@@ -31,7 +31,7 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<Course, CourseDto>();
             CreateMap<CourseUpdateDto, Course>();
 
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserShortInfoDto>();
 
             CreateMap<WorkInsertDto, Work>();
             CreateMap<Work, WorkDto>()
