@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Core", "Huma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Business", "HumanResources.Business\HumanResources.Business.csproj", "{E1651112-93F5-473F-A6F7-A25D46E7C76D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HumanResources.Packages", "HumanResources.Packages", "{6AF9323E-4BEB-49EC-B5AD-D796B6D7643A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.NviKps", "HumanResources.NviKps\HumanResources.NviKps.csproj", "{BA48CD31-1694-4455-93ED-2E64FAFF3989}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{E1651112-93F5-473F-A6F7-A25D46E7C76D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1651112-93F5-473F-A6F7-A25D46E7C76D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1651112-93F5-473F-A6F7-A25D46E7C76D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA48CD31-1694-4455-93ED-2E64FAFF3989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA48CD31-1694-4455-93ED-2E64FAFF3989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA48CD31-1694-4455-93ED-2E64FAFF3989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA48CD31-1694-4455-93ED-2E64FAFF3989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA48CD31-1694-4455-93ED-2E64FAFF3989} = {6AF9323E-4BEB-49EC-B5AD-D796B6D7643A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DC055B5-D67C-4CD1-A462-D2A271D43249}
