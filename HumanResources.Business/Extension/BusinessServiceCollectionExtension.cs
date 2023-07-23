@@ -3,7 +3,7 @@ using HumanResources.Business.ActionFilter;
 using HumanResources.Business.Concrete;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HumanResources.Business.ServiceCollectionExtension
+namespace HumanResources.Business.Extension
 {
     public static class BusinessServiceCollectionExtension
     {
@@ -15,6 +15,8 @@ namespace HumanResources.Business.ServiceCollectionExtension
             services.AddSingleton<ICertificateBusiness, CertificateBusiness>();
             services.AddSingleton<IWorkBusiness, WorkBusiness>();
             services.AddSingleton<IEducationBusiness, EducationBusiness>();
+            services.AddSingleton<IUserBusiness, UserBusiness>();
+            services.AddSingleton<IAuthBusiness, AuthBusiness>();
             services.AddScoped<ValidationFilter>();
         }
     }

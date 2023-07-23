@@ -1,4 +1,7 @@
 ﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Attributes;
+using HumanResources.Business.ValidationRules.Work;
 using HumanResources.Entities.Dto.Work;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +31,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(WorkInsertValidationRule))]
         public IActionResult Insert(WorkInsertDto workInsertDto)
         {
             return Ok(_workBusiness.Add(workInsertDto));
@@ -40,6 +45,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPut]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(WorkUpdateValidationRule))]
         public IActionResult Update(WorkUpdateDto workUpdateDto)
         {
             return Ok(_workBusiness.Update(workUpdateDto));

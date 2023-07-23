@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HumanResources.Entities.Concrete;
+using HumanResources.Entities.Dto.Auth;
 using HumanResources.Entities.Dto.Certificate;
 using HumanResources.Entities.Dto.Course;
 using HumanResources.Entities.Dto.Education;
@@ -31,8 +32,6 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<Course, CourseDto>();
             CreateMap<CourseUpdateDto, Course>();
 
-            CreateMap<User, UserShortInfoDto>();
-
             CreateMap<WorkInsertDto, Work>();
             CreateMap<Work, WorkDto>()
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
@@ -41,13 +40,19 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<Education, EducationDto>()
                 .ForMember(dest => dest.EducationDegree, opt => opt.MapFrom(src => src.EducationDegree.Name))
                 .ForMember(dest => dest.EducationType, opt => opt.MapFrom(src => src.EducationType.Name))
-                .ForMember(dest=>dest.Status, opt=>opt.MapFrom(src=>Enum.GetName(typeof(EducationStatus), src.EducationStatus)));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.GetName(typeof(EducationStatus), src.EducationStatus)));
 
             CreateMap<EducationInsertDto, Education>();
             CreateMap<EducationUpdateDto, Education>();
 
             CreateMap<EducationType, EducationTypeDto>();
             CreateMap<EducationDegree, EducationDegreeDto>();
+
+            CreateMap<RegisterDto, User>();
+            CreateMap<User, UserDto>();
+            CreateMap<UserUpdateDto, User>();
+            CreateMap<User, UserIdentityDto>().ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")));
+            CreateMap<User, UserShortInfoDto>();
         }
     }
 }

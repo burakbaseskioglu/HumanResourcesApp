@@ -14,6 +14,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HumanResources.DataAccess\HumanResources.DataAccess.csproj" />
+    <ProjectReference Include="..\HumanResources.NviKps\HumanResources.NviKps.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ValidationRules\User\" />
   </ItemGroup>
 
 </Project>

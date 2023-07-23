@@ -1,4 +1,7 @@
 ﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Attributes;
+using HumanResources.Business.ValidationRules.Certificate;
 using HumanResources.Entities.Dto.Certificate;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +31,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(CertificateInsertValidationRule))]
         public IActionResult Insert(CertificateInsertDto certificateInsertDto)
         {
             return Ok(_certificateBusiness.Add(certificateInsertDto));
@@ -40,6 +45,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPut]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(CertificateUpdateValidationRule))]
         public IActionResult Update(CertificateUpdateDto certificateUpdateDto)
         {
             return Ok(_certificateBusiness.Update(certificateUpdateDto));

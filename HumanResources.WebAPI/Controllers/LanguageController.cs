@@ -1,4 +1,7 @@
 ﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Attributes;
+using HumanResources.Business.ValidationRules.Language;
 using HumanResources.Entities.Dto.Language;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +31,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(LanguageInsertValidationRule))]
         public IActionResult Insert(LanguageInsertDto languageInsertDto)
         {
             return Ok(_languageBusiness.Add(languageInsertDto));
@@ -40,6 +45,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPut]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(LanguageUpdateValidationRule))]
         public IActionResult Update(LanguageUpdateDto languageUpdateDto)
         {
             return Ok(_languageBusiness.Update(languageUpdateDto));

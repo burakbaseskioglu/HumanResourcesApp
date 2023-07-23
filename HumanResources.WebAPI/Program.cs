@@ -1,4 +1,4 @@
-using HumanResources.Business.ServiceCollectionExtension;
+using HumanResources.Business.Extension;
 using HumanResources.Core.Configuration;
 using HumanResources.Core.MappingProfile;
 using HumanResources.DataAccess.Extension;

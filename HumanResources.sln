@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.Business", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HumanResources.Packages", "HumanResources.Packages", "{6AF9323E-4BEB-49EC-B5AD-D796B6D7643A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.NviKps", "HumanResources.NviKps\HumanResources.NviKps.csproj", "{BA48CD31-1694-4455-93ED-2E64FAFF3989}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanResources.NviKps", "HumanResources.NviKps\HumanResources.NviKps.csproj", "{BA48CD31-1694-4455-93ED-2E64FAFF3989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

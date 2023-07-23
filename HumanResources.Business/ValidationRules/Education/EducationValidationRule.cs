@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using HumanResources.Entities.Dto.Education;
 
-namespace HumanResources.Business.ValidationRules
+namespace HumanResources.Business.ValidationRules.Education
 {
-    public class EducationInsertRule : AbstractValidator<EducationInsertDto>
+    public class EducationInsertValidationRule : AbstractValidator<EducationInsertDto>
     {
-        public EducationInsertRule()
+        public EducationInsertValidationRule()
         {
             RuleFor(x => x.UserId).NotEmpty().NotNull().WithMessage("Kullanıcı boş geçilemez.");
             RuleFor(x => x.Name).NotEmpty().NotNull().WithMessage("Üniversite Adı boş geçilemez.");
@@ -19,9 +19,9 @@ namespace HumanResources.Business.ValidationRules
         }
     }
 
-    public class EducationUpdateRule : AbstractValidator<EducationUpdateDto>
+    public class EducationUpdateValidationRule : AbstractValidator<EducationUpdateDto>
     {
-        public EducationUpdateRule()
+        public EducationUpdateValidationRule()
         {
             RuleFor(x => x.UserId).NotEmpty().NotNull().WithMessage("Kullanıcı boş geçilemez.");
             RuleFor(x => x.Name).NotEmpty().NotNull().WithMessage("Üniversite Adı boş geçilemez.");

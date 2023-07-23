@@ -1,6 +1,6 @@
-﻿namespace HumanResources.Entities.Dto.User;
+﻿namespace HumanResources.Entities.Dto.Auth;
 
-public class UserInsertDto
+public class RegisterDto
 {
     public string Firstname { get; set; }
     public string Lastname { get; set; }

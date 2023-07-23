@@ -1,7 +1,7 @@
 ﻿using HumanResources.Business.Abstract;
 using HumanResources.Business.ActionFilter;
 using HumanResources.Business.Attributes;
-using HumanResources.Business.ValidationRules;
+using HumanResources.Business.ValidationRules.Education;
 using HumanResources.Entities.Dto.Education;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +31,7 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [ServiceFilter(typeof(ValidationFilter))]
-        [Validation(typeof(EducationInsertRule))]
+        [Validation(typeof(EducationUpdateValidationRule))]
         [HttpPost]
         public IActionResult Insert(EducationInsertDto educationInsertDto)
         {
@@ -45,7 +45,7 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [ServiceFilter(typeof(ValidationFilter))]
-        [Validation(typeof(EducationInsertRule))]
+        [Validation(typeof(EducationInsertValidationRule))]
         [HttpPut]
         public IActionResult Update(EducationUpdateDto educationUpdateDto)
         {

@@ -16,6 +16,7 @@ namespace HumanResources.DataAccess.Extension
             services.AddSingleton<IEducationRepository, EducationRepository>();
             services.AddSingleton<IEducationDegreeRepository, EducationDegreeRepository>();
             services.AddSingleton<IEducationTypeRepository, EducationTypeRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
         }
     }
 }

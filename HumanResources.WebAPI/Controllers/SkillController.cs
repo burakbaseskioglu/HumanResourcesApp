@@ -1,5 +1,8 @@
 ﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Attributes;
 using HumanResources.Business.Concrete;
+using HumanResources.Business.ValidationRules.Skill;
 using HumanResources.Entities.Dto.Skill;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +32,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(SkillInsertValidationRule))]
         public IActionResult Insert(SkillInsertDto skillInsertDto)
         {
             return Ok(_skillBusiness.Add(skillInsertDto));
@@ -41,6 +46,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPut]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(SkillUpdateValidationRule))]
         public IActionResult Update(SkillUpdateDto skillUpdateDto)
         {
             return Ok(_skillBusiness.Update(skillUpdateDto));
