@@ -5,7 +5,7 @@ namespace HumanResources.Core.Utilities.Security.Hashing
 {
     public class PasswordHash
     {
-        private const int _keySize = 64;
+        private const int _keySize = 32;
         private const int _iteration = 10000;
 
         public string CreateHash(string password, string salt)

@@ -1,6 +1,7 @@
 ﻿using HumanResources.Business.Abstract;
 using HumanResources.Business.ActionFilter;
 using HumanResources.Business.Attributes;
+using HumanResources.Business.ValidationRules.Auth;
 using HumanResources.Business.ValidationRules.User;
 using HumanResources.Entities.Dto.Auth;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace HumanResources.WebAPI.Controllers
 
         [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilter))]
-        [Validation(typeof(UserInsertValidationRule))]
+        [Validation(typeof(RegisterValidationRule))]
         public async Task<IActionResult> Register(RegisterDto userInsertDto)
         {
             var result = await _authBusiness.Register(userInsertDto);
@@ -29,7 +30,7 @@ namespace HumanResources.WebAPI.Controllers
 
         [HttpPost("login")]
         [ServiceFilter(typeof(ValidationFilter))]
-        [Validation(typeof(UserInsertValidationRule))]
+        [Validation(typeof(LoginValidationRule))]
         public IActionResult Login(LoginDto loginDto)
         {
             var result = _authBusiness.Login(loginDto);

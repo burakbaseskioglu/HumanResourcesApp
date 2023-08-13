@@ -1,7 +1,7 @@
 ﻿namespace HumanResources.Business.Attributes;
 
 [AttributeUsage(AttributeTargets.All)]
-public class ValidationAttribute: Attribute
+public class ValidationAttribute : Attribute
 {
     public Type Type { get; set; }
 

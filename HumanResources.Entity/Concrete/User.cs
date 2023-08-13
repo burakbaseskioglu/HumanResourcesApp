@@ -29,6 +29,9 @@ public class User : BaseEntity
     [Required]
     public string Password { get; set; }
 
+    [Required]
+    public UserDetail UserDetail { get; set; }
+
     public ICollection<Education> Educations { get; set; }
     public ICollection<Work>? Works { get; set; }
     public ICollection<Language>? Languages { get; set; }

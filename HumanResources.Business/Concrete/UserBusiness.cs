@@ -2,6 +2,7 @@
 using HumanResources.Business.Abstract;
 using HumanResources.Core.Utilities.Result;
 using HumanResources.DataAccess.Abstract;
+using HumanResources.Entities.Concrete;
 using HumanResources.Entities.Dto.Auth;
 using HumanResources.Entities.Dto.User;
 using NviServiceReference;
@@ -9,14 +10,17 @@ using NviServiceReference;
 namespace HumanResources.Business.Concrete;
 
 public class UserBusiness : IUserBusiness
+
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserDetailRepository _userDetailRepository;
     private readonly IMapper _mapper;
 
-    public UserBusiness(IUserRepository userRepository, IMapper mapper)
+    public UserBusiness(IUserRepository userRepository, IMapper mapper, IUserDetailRepository userDetailRepository)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _userDetailRepository = userDetailRepository;
     }
 
     public IResult Delete(Guid userId)
@@ -58,7 +62,7 @@ public class UserBusiness : IUserBusiness
         return new ErrorDataResult<UserDto>("Kullanıcı bulunamadı.");
     }
 
-    public IDataResult<UserIdentityDto> GetUserCredentials()
+    public IDataResult<UserIdentityDto> GetUserProfileInformation()
     {
         var findUser = _userRepository.Get(x => x.Id == Guid.Parse("9b66dfbe-cb4d-4078-bde2-bc7a96fb24da"));
 
@@ -97,5 +101,29 @@ public class UserBusiness : IUserBusiness
         }
 
         return new ErrorResult("Kimlik bilgileri doğrulanamadı.");
+    }
+
+    public IResult UserDetailInsertOrUpdate(UserDetailInsertOrUpdateDto userDetailInsertOrUpdateDto)
+    {
+        var checkUser = _userRepository.Get(x => x.Id == userDetailInsertOrUpdateDto.UserId);
+
+        if (checkUser != null)
+        {
+            var userDetail = _userDetailRepository.Get(x => x.UserId == userDetailInsertOrUpdateDto.UserId);
+            if (userDetail != null)
+            {
+                var userDetailToUpdate = _mapper.Map(userDetailInsertOrUpdateDto, userDetail);
+                _userDetailRepository.Update(userDetailToUpdate);
+                return new SuccessResult();
+            }
+            else
+            {
+                var userDetailToInsert = _mapper.Map<UserDetail>(userDetailInsertOrUpdateDto);
+                _userDetailRepository.Insert(userDetailToInsert);
+                return new SuccessResult();
+            }
+        }
+
+        return new ErrorResult("Kullanıcı bulunamadı.");
     }
 }

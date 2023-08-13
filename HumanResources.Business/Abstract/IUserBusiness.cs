@@ -10,7 +10,8 @@ namespace HumanResources.Business.Abstract
         IResult Delete(Guid userId);
         IResult Update(UserUpdateDto userUpdateDto);
         IDataResult<UserDto> GetUserById(Guid id);
-        IDataResult<UserIdentityDto> GetUserCredentials();
+        IDataResult<UserIdentityDto> GetUserProfileInformation();
         Task<IResult> CheckUserFromNvi(RegisterDto userInsertDto);
+        IResult UserDetailInsertOrUpdate(UserDetailInsertOrUpdateDto userDetailInsertOrUpdateDto);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HumanResources.Entities.Abstract;
+using HumanResources.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace HumanResources.Entities.Concrete
@@ -20,15 +21,16 @@ namespace HumanResources.Entities.Concrete
         [Required]
         public string Address { get; set; }
 
+        public MaritalStatus? MaritalStatus { get; set; }
+
         [Required]
-        public string MilitaryServiceStatus { get; set; }
+        public int MilitaryServiceStatus { get; set; }
+
+        public DateTime? MilitaryServiceStatusDate { get; set; }
 
         [Required]
         public string BloodType { get; set; }
 
-        public string? MaritalStatus { get; set; }
-
         public string? DrivingLicense { get; set; }
-        
     }
 }

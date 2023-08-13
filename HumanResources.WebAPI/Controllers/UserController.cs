@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HumanResources.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user")]
     public class UserController : Controller
     {
         private readonly IUserBusiness _userBusiness;
@@ -25,17 +25,17 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{userId}")]
         public IActionResult GetUserById(Guid userId)
         {
             var result = _userBusiness.GetUserById(userId);
             return Ok(result);
         }
 
-        [HttpGet("userCredentials")]
-        public IActionResult GetUserCredentials()
+        [HttpGet("profile")]
+        public IActionResult GetUserProfileInformation()
         {
-            var result = _userBusiness.GetUserCredentials();
+            var result = _userBusiness.GetUserProfileInformation();
             return Ok(result);
         }
 
@@ -48,10 +48,19 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{userId}")]
         public IActionResult Delete(Guid userId)
         {
             var result = _userBusiness.Delete(userId);
+            return Ok(result);
+        }
+
+        [HttpPost("detail")]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(UserDetailInsertOrUpdateValidationRule))]
+        public IActionResult InsertUserDetail(UserDetailInsertOrUpdateDto userDetailInsertOrUpdateDto)
+        {
+            var result = _userBusiness.UserDetailInsertOrUpdate(userDetailInsertOrUpdateDto);
             return Ok(result);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HumanResources.Entities.Concrete;
+using HumanResources.Entities.Dto.ApplicantCv;
 using HumanResources.Entities.Dto.Auth;
 using HumanResources.Entities.Dto.Certificate;
 using HumanResources.Entities.Dto.Course;
@@ -40,7 +41,9 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<Education, EducationDto>()
                 .ForMember(dest => dest.EducationDegree, opt => opt.MapFrom(src => src.EducationDegree.Name))
                 .ForMember(dest => dest.EducationType, opt => opt.MapFrom(src => src.EducationType.Name))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.GetName(typeof(EducationStatus), src.EducationStatus)));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.GetName(typeof(EducationStatus), src.EducationStatus)))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.ToString("yyy-MM-dd")))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate!.Value.ToString("yyy-MM-dd")));
 
             CreateMap<EducationInsertDto, Education>();
             CreateMap<EducationUpdateDto, Education>();
@@ -51,8 +54,17 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<RegisterDto, User>();
             CreateMap<User, UserDto>();
             CreateMap<UserUpdateDto, User>();
-            CreateMap<User, UserIdentityDto>().ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")));
+            CreateMap<User, UserIdentityDto>()
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")));
             CreateMap<User, UserShortInfoDto>();
+            CreateMap<ApplicantCV, ApplicantCVDto>();
+
+            CreateMap<UserDetailInsertOrUpdateDto, UserDetail>();
+            CreateMap<UserDetail, UserDetailDto>()
+                .ForMember(dest => dest.MilitaryServiceStatusDate, opt => opt.MapFrom(src => src.MilitaryServiceStatusDate!.Value.ToString("yyy-MM-dd")))
+                //.ForMember(dest=>dest.MilitaryServiceStatus,opt=>opt.MapFrom(src=>src.MilitaryServiceStatus.GetDisplayName()));
+                .ForMember(dest => dest.MilitaryServiceStatus, opt => opt.MapFrom(src => Enum.GetName(typeof(MilitaryServiceStatus), src.MilitaryServiceStatus)))
+                .ForMember(dest => dest.MaritalStatus, opt => opt.MapFrom(src => Enum.GetName(typeof(MaritalStatus), src.MaritalStatus)));
         }
     }
 }
