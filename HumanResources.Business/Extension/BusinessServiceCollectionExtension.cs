@@ -19,6 +19,8 @@ namespace HumanResources.Business.Extension
             services.AddSingleton<IAuthBusiness, AuthBusiness>();
             services.AddSingleton<IApplicantCVBusiness, ApplicantCVBusiness>();
             services.AddScoped<ValidationFilter>();
+            services.AddSingleton<IJobBusiness, JobBusiness>();
+            services.AddSingleton<IWorkspaceBusiness, WorkspaceBusiness>();
         }
     }
 }

@@ -22,6 +22,12 @@ namespace HumanResources.DataAccess
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Workspace>().HasMany(x => x.Jobs).WithOne(x => x.Workspace).HasForeignKey(x => x.WorkspaceId).IsRequired();
+            modelBuilder.Entity<Job>().HasOne(x => x.Workspace).WithMany(x => x.Jobs).HasForeignKey(x => x.WorkspaceId).IsRequired();
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Language> Languages { get; set; }
@@ -32,5 +38,8 @@ namespace HumanResources.DataAccess
         public DbSet<Work> Works { get; set; }
         public DbSet<EducationType> EducationTypes { get; set; }
         public DbSet<EducationDegree> EducationDegrees { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Workspace> Workspaces { get; set; }
+        public DbSet<ApplyForJob> ApplyForJobs { get; set; }
     }
 }

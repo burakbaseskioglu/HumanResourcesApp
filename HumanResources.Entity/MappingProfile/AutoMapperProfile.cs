@@ -5,6 +5,7 @@ using HumanResources.Entities.Dto.Auth;
 using HumanResources.Entities.Dto.Certificate;
 using HumanResources.Entities.Dto.Course;
 using HumanResources.Entities.Dto.Education;
+using HumanResources.Entities.Dto.Job;
 using HumanResources.Entities.Dto.Language;
 using HumanResources.Entities.Dto.Skill;
 using HumanResources.Entities.Dto.User;
@@ -62,9 +63,27 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<UserDetailInsertOrUpdateDto, UserDetail>();
             CreateMap<UserDetail, UserDetailDto>()
                 .ForMember(dest => dest.MilitaryServiceStatusDate, opt => opt.MapFrom(src => src.MilitaryServiceStatusDate!.Value.ToString("yyy-MM-dd")))
-                //.ForMember(dest=>dest.MilitaryServiceStatus,opt=>opt.MapFrom(src=>src.MilitaryServiceStatus.GetDisplayName()));
-                .ForMember(dest => dest.MilitaryServiceStatus, opt => opt.MapFrom(src => Enum.GetName(typeof(MilitaryServiceStatus), src.MilitaryServiceStatus)))
+                .ForMember(dest => dest.MilitaryServiceStatus, opt => opt.MapFrom(src => GetMilitaryServiceStatusDisplayName(src.MilitaryServiceStatus)))
                 .ForMember(dest => dest.MaritalStatus, opt => opt.MapFrom(src => Enum.GetName(typeof(MaritalStatus), src.MaritalStatus)));
+
+            CreateMap<JobInsertDto, Job>();
+            CreateMap<Job, JobDto>()
+                .ForMember(dest => dest.Workspace, opt => opt.MapFrom(src => src.Workspace.Name));
+            CreateMap<JobUpdateDto, Job>();
+        }
+
+        public string GetMilitaryServiceStatusDisplayName(int enumId)
+        {
+            var result = enumId switch
+            {
+                0 => MilitaryServiceStatus.Terhis.GetDisplayName(),
+                1 => MilitaryServiceStatus.Tecil.GetDisplayName(),
+                2 => MilitaryServiceStatus.Muaf.GetDisplayName(),
+                3 => MilitaryServiceStatus.BedelliYapılacak.GetDisplayName(),
+                _ => string.Empty
+            };
+
+            return result;
         }
     }
 }
