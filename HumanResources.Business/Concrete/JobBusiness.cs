@@ -4,6 +4,8 @@ using HumanResources.Core.Utilities.Result;
 using HumanResources.DataAccess.Abstract;
 using HumanResources.Entities.Concrete;
 using HumanResources.Entities.Dto.Job;
+using System.Security.Cryptography.X509Certificates;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HumanResources.Business.Concrete
 {
@@ -28,7 +30,7 @@ namespace HumanResources.Business.Concrete
                 return new SuccessResult();
             }
 
-            return new ErrorResult("İş ilanı bulunamadı.");
+            return new ErrorResult("İş İlanı bulunamadı.");
         }
 
         public IDataResult<IEnumerable<JobDto>> GetAll()
@@ -41,7 +43,20 @@ namespace HumanResources.Business.Concrete
                 return new SuccessDataResult<IEnumerable<JobDto>>(jobList);
             }
 
-            return new ErrorDataResult<IEnumerable<JobDto>>("Aktif İş Başvuru listesi bulunamadı.");
+            return new ErrorDataResult<IEnumerable<JobDto>>("Aktif İş İlanı listesi bulunamadı.");
+        }
+
+        public IDataResult<IEnumerable<JobDto>> GetJobsByFilter(JobFilterDto? jobFilterDto)
+        {
+            var jobs = _jobRepository.GetJobs(jobFilterDto.Ids);
+
+            if (jobs.Any())
+            {
+                var jobList = _mapper.Map<IEnumerable<JobDto>>(jobs);
+                return new SuccessDataResult<IEnumerable<JobDto>>(jobList);
+            }
+
+            return new ErrorDataResult<IEnumerable<JobDto>>("Aktif İş İlanı listesi bulunamadı.");
         }
 
         public IResult Insert(JobInsertDto jobInsertDto)
@@ -55,7 +70,7 @@ namespace HumanResources.Business.Concrete
                 return new SuccessResult();
             }
 
-            return new ErrorResult("Açılmaya çalışan ilan zaten mevcut!");
+            return new ErrorResult("Açılmaya çalışılan ilan zaten mevcut!");
         }
 
         public IResult Update(JobUpdateDto jobUpdateDto)
@@ -68,7 +83,7 @@ namespace HumanResources.Business.Concrete
                 return new SuccessResult();
             }
 
-            return new ErrorResult("İş ilanı bulunamadı.");
+            return new ErrorResult("İş İlanı bulunamadı.");
         }
     }
 }

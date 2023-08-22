@@ -10,6 +10,7 @@ using HumanResources.Entities.Dto.Language;
 using HumanResources.Entities.Dto.Skill;
 using HumanResources.Entities.Dto.User;
 using HumanResources.Entities.Dto.Work;
+using HumanResources.Entities.Dto.Workspace;
 using HumanResources.Entities.Enums;
 
 namespace HumanResources.Core.MappingProfile
@@ -70,6 +71,10 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<Job, JobDto>()
                 .ForMember(dest => dest.Workspace, opt => opt.MapFrom(src => src.Workspace.Name));
             CreateMap<JobUpdateDto, Job>();
+
+            CreateMap<WorkspaceInsertDto, Workspace>();
+            CreateMap<WorkspaceUpdateDto, Workspace>();
+            CreateMap<Workspace, WorkspaceDto>();
         }
 
         public string GetMilitaryServiceStatusDisplayName(int enumId)

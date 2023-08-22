@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HumanResources.WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("jobs")]
     public class JobController : Controller
     {
         private readonly IJobBusiness _jobBusiness;
@@ -25,6 +25,13 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost("getJobsByWorkspace")]
+        public IActionResult GetJobsByFilter(JobFilterDto? jobFilterDto)
+        {
+            var result = _jobBusiness.GetJobsByFilter(jobFilterDto);
+            return Ok(result);
+        }
+
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilter))]
         [Validation(typeof(JobInsertValidationRule))]
@@ -35,7 +42,6 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPut]
-        [HttpPost]
         [ServiceFilter(typeof(ValidationFilter))]
         [Validation(typeof(JobUpdateValidationRule))]
         public IActionResult Update(JobUpdateDto jobUpdateDto)

@@ -9,5 +9,6 @@ namespace HumanResources.Business.Abstract
         IResult Update(JobUpdateDto jobUpdateDto);
         IResult Delete(Guid id);
         IDataResult<IEnumerable<JobDto>> GetAll();
+        IDataResult<IEnumerable<JobDto>> GetJobsByFilter(JobFilterDto? jobFilterDto);
     }
 }

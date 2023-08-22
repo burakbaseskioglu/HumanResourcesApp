@@ -5,6 +5,6 @@ namespace HumanResources.DataAccess.Abstract
 {
     public interface IJobRepository : IRepository<Job>
     {
-        public List<Job> GetJobs();
+        public List<Job> GetJobs(List<Guid>? ids = null);
     }
 }

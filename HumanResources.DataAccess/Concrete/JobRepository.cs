@@ -3,6 +3,7 @@ using HumanResources.DataAccess.Repository.EntityFramework;
 using HumanResources.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace HumanResources.DataAccess.Concrete
 {
@@ -14,11 +15,14 @@ namespace HumanResources.DataAccess.Concrete
             _configuration = configuration;
         }
 
-        public List<Job> GetJobs()
+        public List<Job> GetJobs(List<Guid>? ids = null)
         {
             using (var context = new ApplicationDbContext(_configuration))
             {
-                return context.Jobs.Include(x => x.Workspace).Where(x => !x.DeletedDate.HasValue).ToList();
+                var jobs = context.Jobs.Include(x => x.Workspace).Where(x => !x.DeletedDate.HasValue);
+
+                return ids.Any() ? jobs.Where(x => ids.Contains(x.WorkspaceId)).ToList() : jobs.ToList();
+
             }
         }
     }

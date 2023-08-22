@@ -33,7 +33,9 @@ namespace HumanResources.DataAccess.Repository.EntityFramework
         {
             using (_context = new(_configuration))
             {
-                return _context.Set<T>().FirstOrDefault(expression)!;
+                return _context.Set<T>()
+                    .Where(x => !x.DeletedDate.HasValue)
+                    .FirstOrDefault(expression)!;
             }
         }
 
@@ -41,7 +43,16 @@ namespace HumanResources.DataAccess.Repository.EntityFramework
         {
             using (_context = new(_configuration))
             {
-                return expression == null ? _context.Set<T>().ToList() : _context.Set<T>().Where(expression).ToList();
+                return expression == null
+                    ?
+                    _context.Set<T>()
+                    .Where(x => !x.DeletedDate.HasValue)
+                    .ToList()
+                    :
+                    _context.Set<T>()
+                    .Where(x => !x.DeletedDate.HasValue)
+                    .Where(expression)
+                    .ToList();
             }
         }
 
