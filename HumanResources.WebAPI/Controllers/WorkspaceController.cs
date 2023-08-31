@@ -1,4 +1,7 @@
 ﻿using HumanResources.Business.Abstract;
+using HumanResources.Business.ActionFilter;
+using HumanResources.Business.Attributes;
+using HumanResources.Business.ValidationRules.Workspace;
 using HumanResources.Entities.Dto.Workspace;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,8 +26,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPost]
-        //[ServiceFilter(typeof(ValidationFilter))]
-        //[Validation(typeof(JobInsertValidationRule))]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(WorkspaceInsertValidationRules))]
         public IActionResult Insert(WorkspaceInsertDto workspaceInsertDto)
         {
             var result = _workspaceBusiness.Insert(workspaceInsertDto);
@@ -32,8 +35,8 @@ namespace HumanResources.WebAPI.Controllers
         }
 
         [HttpPut]
-        //[ServiceFilter(typeof(ValidationFilter))]
-        //[Validation(typeof(JobUpdateValidationRule))]
+        [ServiceFilter(typeof(ValidationFilter))]
+        [Validation(typeof(WorkspaceUpdateValidationRules))]
         public IActionResult Update(WorkspaceUpdateDto workspaceUpdateDto)
         {
             var result = _workspaceBusiness.Update(workspaceUpdateDto);

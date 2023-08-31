@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HumanResources.Entities.Concrete;
 using HumanResources.Entities.Dto.ApplicantCv;
+using HumanResources.Entities.Dto.ApplyForJob;
 using HumanResources.Entities.Dto.Auth;
 using HumanResources.Entities.Dto.Certificate;
 using HumanResources.Entities.Dto.Course;
@@ -75,6 +76,12 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<WorkspaceInsertDto, Workspace>();
             CreateMap<WorkspaceUpdateDto, Workspace>();
             CreateMap<Workspace, WorkspaceDto>();
+
+            CreateMap<ApplyForJobInsertDto, ApplyForJob>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => (int)ApplyForJobStatus.Waiting));
+            CreateMap<ApplyForJobUpdateDto, ApplyForJob>();
+            CreateMap<ApplyForJob, ApplyForJobDto>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => GetApplyForJobStatusDisplayName(src.Status)));
         }
 
         public string GetMilitaryServiceStatusDisplayName(int enumId)
@@ -85,6 +92,19 @@ namespace HumanResources.Core.MappingProfile
                 1 => MilitaryServiceStatus.Tecil.GetDisplayName(),
                 2 => MilitaryServiceStatus.Muaf.GetDisplayName(),
                 3 => MilitaryServiceStatus.BedelliYapılacak.GetDisplayName(),
+                _ => string.Empty
+            };
+
+            return result;
+        }
+
+        public string GetApplyForJobStatusDisplayName(int enumId)
+        {
+            var result = enumId switch
+            {
+                0 => ApplyForJobStatus.Waiting.GetDisplayName(),
+                1 => ApplyForJobStatus.Accepted.GetDisplayName(),
+                2 => ApplyForJobStatus.Rejected.GetDisplayName(),
                 _ => string.Empty
             };
 

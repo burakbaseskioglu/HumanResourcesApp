@@ -21,6 +21,7 @@ namespace HumanResources.DataAccess.Extension
             services.AddSingleton<IUserDetailRepository, UserDetailRepository>();
             services.AddSingleton<IJobRepository, JobRepository>();
             services.AddSingleton<IWorkspaceRepository, WorkspaceRepository>();
+            services.AddSingleton<IApplyForJobRepository, ApplyForJobRepository>();
         }
     }
 }
