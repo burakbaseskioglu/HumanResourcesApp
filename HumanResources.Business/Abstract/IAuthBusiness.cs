@@ -7,5 +7,6 @@ namespace HumanResources.Business.Abstract
     {
         Task<IResult> Register(RegisterDto userInsertDto);
         IResult Login(LoginDto loginDto);
+        IDataResult<string> GenerateKey();
     }
 }

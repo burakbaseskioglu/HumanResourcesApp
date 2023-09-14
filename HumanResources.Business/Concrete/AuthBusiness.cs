@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HumanResources.Business.Abstract;
 using HumanResources.Core.Utilities.Result;
+using HumanResources.Core.Utilities.Security;
+using HumanResources.Core.Utilities.Security.EncryptDecrypt;
 using HumanResources.Core.Utilities.Security.Hashing;
 using HumanResources.DataAccess.Abstract;
 using HumanResources.Entities.Concrete;
@@ -13,12 +15,20 @@ namespace HumanResources.Business.Concrete
         private readonly IUserBusiness _userBusiness;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IEncryption _encryption;
 
-        public AuthBusiness(IUserBusiness userBusiness, IUserRepository userRepository, IMapper mapper)
+        public AuthBusiness(IUserBusiness userBusiness, IUserRepository userRepository, IMapper mapper, IEncryption encryption)
         {
             _userBusiness = userBusiness;
             _userRepository = userRepository;
             _mapper = mapper;
+            _encryption = encryption;
+        }
+
+        public IDataResult<string> GenerateKey()
+        {
+            var key = _encryption.GenerateKey();
+            return new SuccessDataResult<string>(key);
         }
 
         public IResult Login(LoginDto loginDto)
@@ -61,6 +71,17 @@ namespace HumanResources.Business.Concrete
                         var generateSalt = passwordHash.GenerateSaltHash();
                         user.Password = passwordHash.CreateHash(user.Password, generateSalt);
 
+                        var userPublicKey = _encryption.GenerateKey();
+                        var encryptedUserPublicKey = _encryption.EncryptText(userPublicKey, EncryptionConstant.EncryptionPrivateKey);
+
+                        var encryptedIdentityNumber = _encryption.EncryptText(user.IdentityNumber.ToString(), userPublicKey);
+                        var encryptedPhoneNumber = _encryption.EncryptText(user.Phone, userPublicKey);
+                        var encryptedEmail = _encryption.EncryptText(user.Email, userPublicKey);
+
+                        //user.IdentityNumber = 
+                        user.Phone = encryptedPhoneNumber;
+                        user.Email = encryptedEmail;
+                        user.PublicKey = encryptedUserPublicKey;
                         _userRepository.Insert(user);
                         return new SuccessResult();
                     }

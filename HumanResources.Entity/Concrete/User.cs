@@ -29,6 +29,8 @@ public class User : BaseEntity
     [Required]
     public string Password { get; set; }
 
+    public string PublicKey { get; set; }
+
     [Required]
     public UserDetail UserDetail { get; set; }
 

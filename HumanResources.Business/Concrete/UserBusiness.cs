@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HumanResources.Business.Abstract;
 using HumanResources.Core.Utilities.Result;
+using HumanResources.Core.Utilities.Security.EncryptDecrypt;
 using HumanResources.DataAccess.Abstract;
 using HumanResources.Entities.Concrete;
 using HumanResources.Entities.Dto.Auth;
@@ -15,12 +16,14 @@ public class UserBusiness : IUserBusiness
     private readonly IUserRepository _userRepository;
     private readonly IUserDetailRepository _userDetailRepository;
     private readonly IMapper _mapper;
+    private readonly IEncryption _encryption;
 
-    public UserBusiness(IUserRepository userRepository, IMapper mapper, IUserDetailRepository userDetailRepository)
+    public UserBusiness(IUserRepository userRepository, IMapper mapper, IUserDetailRepository userDetailRepository, IEncryption encryption)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _userDetailRepository = userDetailRepository;
+        _encryption = encryption;
     }
 
     public IResult Delete(Guid userId)

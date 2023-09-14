@@ -36,5 +36,12 @@ namespace HumanResources.WebAPI.Controllers
             var result = _authBusiness.Login(loginDto);
             return Ok(result);
         }
+
+        [HttpPost("generate")]
+        public IActionResult Generate()
+        {
+            var result = _authBusiness.GenerateKey();
+            return Ok(result);
+        }
     }
 }

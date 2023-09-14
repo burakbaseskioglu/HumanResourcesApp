@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HumanResources.Core.Utilities.Security.EncryptDecrypt
+﻿namespace HumanResources.Core.Utilities.Security.EncryptDecrypt
 {
     public interface IEncryption
     {
-        string EncryptText(string input, string privateKey = null);
-        string DecryptText(string input, string privateKey = null);
+        string EncryptText(string plainText, string key);
+        string DecryptText(string encryptedText, string key);
+        string GenerateKey();
     }
 }
