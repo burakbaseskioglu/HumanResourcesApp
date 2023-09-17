@@ -55,7 +55,7 @@ namespace HumanResources.WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("detail")]
+        [HttpPost("insertOrUpdateUserDetail")]
         [ServiceFilter(typeof(ValidationFilter))]
         [Validation(typeof(UserDetailInsertOrUpdateValidationRule))]
         public IActionResult InsertUserDetail(UserDetailInsertOrUpdateDto userDetailInsertOrUpdateDto)

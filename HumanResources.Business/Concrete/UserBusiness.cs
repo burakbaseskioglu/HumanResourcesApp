@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HumanResources.Business.Abstract;
 using HumanResources.Core.Utilities.Result;
+using HumanResources.Core.Utilities.Security;
 using HumanResources.Core.Utilities.Security.EncryptDecrypt;
 using HumanResources.DataAccess.Abstract;
 using HumanResources.Entities.Concrete;
@@ -59,6 +60,14 @@ public class UserBusiness : IUserBusiness
         if (findUser != null)
         {
             var user = _mapper.Map<UserDto>(findUser);
+
+            var userPublicKey = findUser.PublicKey;
+            var userDecryptedPublicKey = _encryption.DecryptText(userPublicKey, EncryptionConstant.EncryptionPrivateKey);
+
+            user.IdentityNumber = Convert.ToInt64(_encryption.DecryptText(findUser.IdentityNumber, userDecryptedPublicKey));
+            user.Phone = _encryption.DecryptText(findUser.Phone, userDecryptedPublicKey);
+            user.Email = _encryption.DecryptText(findUser.Email, userDecryptedPublicKey);
+
             return new SuccessDataResult<UserDto>(user);
         }
 
@@ -67,11 +76,16 @@ public class UserBusiness : IUserBusiness
 
     public IDataResult<UserIdentityDto> GetUserProfileInformation()
     {
-        var findUser = _userRepository.Get(x => x.Id == Guid.Parse("9b66dfbe-cb4d-4078-bde2-bc7a96fb24da"));
+        var findUser = _userRepository.Get(x => x.Id == Guid.Parse("faa1f8b1-d83d-4a31-9648-4855d8425d78"));
 
         if (findUser != null)
         {
             var user = _mapper.Map<UserIdentityDto>(findUser);
+            var userPublicKey = findUser.PublicKey;
+            var userDecryptedPublicKey = _encryption.DecryptText(userPublicKey, EncryptionConstant.EncryptionPrivateKey);
+
+            user.IdentityNumber = Convert.ToInt64(_encryption.DecryptText(findUser.IdentityNumber, userDecryptedPublicKey));
+
             return new SuccessDataResult<UserIdentityDto>(user);
         }
 
@@ -85,6 +99,12 @@ public class UserBusiness : IUserBusiness
         if (user != null)
         {
             var updatedUser = _mapper.Map(userUpdateDto, user);
+
+            var userPublicKey = user.PublicKey;
+            var userDecryptedPublicKey = _encryption.DecryptText(userPublicKey, EncryptionConstant.EncryptionPrivateKey);
+            updatedUser.Email = _encryption.EncryptText(userUpdateDto.Email, userDecryptedPublicKey);
+            updatedUser.Phone = _encryption.EncryptText(userUpdateDto.Phone, userDecryptedPublicKey);
+
             _userRepository.Update(updatedUser);
             return new SuccessResult();
         }
@@ -96,7 +116,7 @@ public class UserBusiness : IUserBusiness
     {
         using KPSPublicSoapClient nviClient = new KPSPublicSoapClient(KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap);
 
-        var result = await nviClient.TCKimlikNoDogrulaAsync(userInsertDto.IdentityNumber, userInsertDto.Firstname, userInsertDto.Lastname, userInsertDto.DateOfBirth.Year);
+        var result = await nviClient.TCKimlikNoDogrulaAsync(Convert.ToInt64(userInsertDto.IdentityNumber), userInsertDto.Firstname, userInsertDto.Lastname, userInsertDto.DateOfBirth.Year);
 
         if (result.Body.TCKimlikNoDogrulaResult)
         {

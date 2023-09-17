@@ -17,7 +17,7 @@ namespace HumanResources.Business.ValidationRules.Auth
                 .MaximumLength(128).WithMessage("En fazla 128 karakter girebilirsiniz.");
 
             RuleFor(x => x.Email).NotEmpty().NotNull().WithMessage("Email Adresi boş geçilemez.")
-                .Must(IsValidEmail).WithMessage("Geçerli bir email adresi giriniz.")
+                .Must(IsValidEmailControl.IsValidEmail).WithMessage("Geçerli bir email adresi giriniz.")
                 .MinimumLength(3).WithMessage("En az 3 karakter girmelisiniz.")
                 .MaximumLength(128).WithMessage("En fazla 128 karakter girebilirsiniz.");
 
@@ -31,17 +31,17 @@ namespace HumanResources.Business.ValidationRules.Auth
 
             RuleFor(x => x.Nationality).NotEmpty().NotNull().WithMessage("Uyruk alanı boş geçilemez.")
                 .MinimumLength(3).WithMessage("En az 3 karakter girmelisiniz.")
-                .MaximumLength(128).WithMessage("En fazla 128 karakter girebilirsiniz.");
+                .MaximumLength(64).WithMessage("En fazla 64 karakter girebilirsiniz.");
 
             RuleFor(x => x.Password).NotEmpty().NotNull().WithMessage("Şifre alanı boş geçilemez.")
-               .MinimumLength(3).WithMessage("En az 3 karakter girmelisiniz.")
-               .MaximumLength(128).WithMessage("En fazla 128 karakter girebilirsiniz.")
+               .MinimumLength(8).WithMessage("Şifreniz en 8 karakter olabilir.")
+               .MaximumLength(24).WithMessage("Şifreniz en fazla 24 karakter olabilir.")
                .Must(IsValidPassword).WithMessage("Parolanız, \nEn az bir büyük harf (A-Z) içermeli, \nEn az bir küçük harf (a-z) içermeli, " +
                "\nEn az bir sayısal karakter (0-9) içermeli, \nEn az bir özel karakter (alfanumerik olmayan) içermeli");
 
             RuleFor(x => x.PasswordAgain).NotEmpty().NotNull().WithMessage("Şifre tekrarı boş geçilemez.")
-               .MinimumLength(8).WithMessage("En az 8 karakter girmelisiniz.")
-               .MaximumLength(32).WithMessage("En fazla 32 karakter girebilirsiniz.")
+               .MinimumLength(8).WithMessage("Şifreniz en 8 karakter olabilir.")
+               .MaximumLength(24).WithMessage("Şifreniz en fazla 24 karakter olabilir.")
                .Must(IsValidPassword).WithMessage("Parolanız, \nEn az bir büyük harf (A-Z) içermeli, \nEn az bir küçük harf (a-z) içermeli, " +
                "\nEn az bir sayısal karakter (0-9) içermeli, \nEn az bir özel karakter (alfanumerik olmayan) içermeli");
         }
@@ -58,21 +58,9 @@ namespace HumanResources.Business.ValidationRules.Auth
             return false;
         }
 
-        public bool IsValidIdentityNumber(long identityNumber)
+        public bool IsValidIdentityNumber(string identityNumber)
         {
-            var result = Regex.Match(identityNumber.ToString(), @"^[1-9]\d{10}$");
-
-            if (result.Success)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool IsValidEmail(string emailAddress)
-        {
-            var result = Regex.Match(emailAddress, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            var result = Regex.Match(identityNumber, @"^[1-9]\d{10}$");
 
             if (result.Success)
             {
@@ -100,16 +88,19 @@ namespace HumanResources.Business.ValidationRules.Auth
         public LoginValidationRule()
         {
             RuleFor(x => x.Email).NotEmpty().NotNull().WithMessage("Email Adresi boş geçilemez.")
-                .Must(IsValidEmail).WithMessage("Geçerli bir email adresi giriniz.")
+                .Must(IsValidEmailControl.IsValidEmail).WithMessage("Geçerli bir email adresi giriniz.")
                 .MinimumLength(3).WithMessage("En az 3 karakter girmelisiniz.")
                 .MaximumLength(128).WithMessage("En fazla 128 karakter girebilirsiniz.");
 
             RuleFor(x => x.Password).NotEmpty().NotNull().WithMessage("Şifre alanı boş geçilemez.")
                 .MinimumLength(8).WithMessage("En az 8 karakter girmelisiniz.")
-               .MaximumLength(32).WithMessage("En fazla 32 karakter girebilirsiniz.");         
+               .MaximumLength(24).WithMessage("En fazla 24 karakter girebilirsiniz.");         
         }
+    }
 
-        public bool IsValidEmail(string emailAddress)
+    public static class IsValidEmailControl
+    {
+        public static bool IsValidEmail(string emailAddress)
         {
             var result = Regex.Match(emailAddress, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
 

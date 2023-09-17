@@ -10,6 +10,4 @@ public class UserDto
     public long IdentityNumber { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string Nationality { get; set; }
-    public string Password { get; set; }
-    public string PasswordAgain { get; set; }
 }

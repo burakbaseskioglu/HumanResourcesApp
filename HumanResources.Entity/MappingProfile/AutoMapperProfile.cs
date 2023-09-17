@@ -55,11 +55,16 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<EducationDegree, EducationDegreeDto>();
 
             CreateMap<RegisterDto, User>();
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.IdentityNumber, opt => opt.Ignore())
+                .ForMember(dest => dest.Phone, opt => opt.Ignore())
+                .ForMember(dest => dest.Email, opt => opt.Ignore());
             CreateMap<UserUpdateDto, User>();
             CreateMap<User, UserIdentityDto>()
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")));
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")))
+                .ForMember(dest => dest.IdentityNumber, opt => opt.Ignore());
             CreateMap<User, UserShortInfoDto>();
+
             CreateMap<ApplicantCV, ApplicantCVDto>();
 
             CreateMap<UserDetailInsertOrUpdateDto, UserDetail>();

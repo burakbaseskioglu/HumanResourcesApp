@@ -18,7 +18,7 @@ public class User : BaseEntity
     public string Phone { get; set; }
 
     [Required]
-    public long IdentityNumber { get; set; }
+    public string IdentityNumber { get; set; }
 
     [Required]
     public DateTime DateOfBirth { get; set; }

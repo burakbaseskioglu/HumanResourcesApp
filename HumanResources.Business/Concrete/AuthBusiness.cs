@@ -78,10 +78,11 @@ namespace HumanResources.Business.Concrete
                         var encryptedPhoneNumber = _encryption.EncryptText(user.Phone, userPublicKey);
                         var encryptedEmail = _encryption.EncryptText(user.Email, userPublicKey);
 
-                        //user.IdentityNumber = 
+                        user.IdentityNumber = encryptedIdentityNumber;
                         user.Phone = encryptedPhoneNumber;
                         user.Email = encryptedEmail;
                         user.PublicKey = encryptedUserPublicKey;
+
                         _userRepository.Insert(user);
                         return new SuccessResult();
                     }

@@ -7,24 +7,29 @@ namespace HumanResources.Core.Utilities.Security.EncryptDecrypt
     {
         public string DecryptText(string encryptedText, string key)
         {
-            using(Aes aes = Aes.Create())
+            string plainText = string.Empty;
+
+            using (Aes aes = Aes.Create())
             {
-                aes.Key= Encoding.ASCII.GetBytes(key.Substring(0, 32));
+                var encryptedTextStringToByte = Convert.FromBase64String(encryptedText);
+                aes.Key = Encoding.ASCII.GetBytes(key.Substring(0, 32));
                 aes.IV = Encoding.ASCII.GetBytes(key.Substring(16, 16));
 
-                ICryptoTransform cryptoTransform=aes.CreateDecryptor(aes.Key, aes.IV);
+                ICryptoTransform cryptoTransform = aes.CreateDecryptor(aes.Key, aes.IV);
 
-                using(MemoryStream memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream(encryptedTextStringToByte))
                 {
-                    using(CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Read))
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Read))
                     {
-                        using(StreamReader streamReader = new StreamReader(cryptoStream))
+                        using (StreamReader streamReader = new StreamReader(cryptoStream))
                         {
-                            return streamReader.ReadToEnd();
+                            plainText = streamReader.ReadToEnd();
                         }
                     }
                 }
             }
+
+            return plainText;
         }
 
         public string EncryptText(string plainText, string key)
