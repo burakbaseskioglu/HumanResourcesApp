@@ -3,12 +3,14 @@ using HumanResources.Business.ActionFilter;
 using HumanResources.Business.Attributes;
 using HumanResources.Business.ValidationRules.User;
 using HumanResources.Entities.Dto.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResources.WebAPI.Controllers
 {
     [ApiController]
     [Route("user")]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserBusiness _userBusiness;

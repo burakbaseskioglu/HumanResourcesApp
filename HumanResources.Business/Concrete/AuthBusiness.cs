@@ -4,6 +4,7 @@ using HumanResources.Core.Utilities.Result;
 using HumanResources.Core.Utilities.Security;
 using HumanResources.Core.Utilities.Security.EncryptDecrypt;
 using HumanResources.Core.Utilities.Security.Hashing;
+using HumanResources.Core.Utilities.Security.Jwt;
 using HumanResources.DataAccess.Abstract;
 using HumanResources.Entities.Concrete;
 using HumanResources.Entities.Dto.Auth;
@@ -16,13 +17,49 @@ namespace HumanResources.Business.Concrete
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IEncryption _encryption;
+        private readonly ITokenService _tokenService;
 
-        public AuthBusiness(IUserBusiness userBusiness, IUserRepository userRepository, IMapper mapper, IEncryption encryption)
+        public AuthBusiness(IUserBusiness userBusiness, IUserRepository userRepository, IMapper mapper, IEncryption encryption, ITokenService tokenService)
         {
             _userBusiness = userBusiness;
             _userRepository = userRepository;
             _mapper = mapper;
             _encryption = encryption;
+            _tokenService = tokenService;
+        }
+
+        public IDataResult<AccessToken> GenerateAccessTokenWithRefreshToken(string refreshToken)
+        {
+            var getRefreshToken = _userRepository.Get(x => x.RefreshToken == refreshToken);
+
+            if (getRefreshToken != null)
+            {
+                if (DateTime.Now < getRefreshToken.ExpireTime)
+                {
+                    var newAccessToken = _tokenService.CreateAccessToken();
+
+                    if (newAccessToken.Success)
+                    {
+                        var newRefreshToken = _tokenService.CreateRefreshToken();
+                        getRefreshToken.RefreshToken = newRefreshToken.Data.refresh_token;
+                        getRefreshToken.ExpireTime = newRefreshToken.Data.expire_time;
+
+                        _userRepository.Update(getRefreshToken);
+                        return new SuccessDataResult<AccessToken>(newAccessToken.Data);
+                    }
+
+                    return new ErrorDataResult<AccessToken>(newAccessToken.Message);
+                }
+
+                getRefreshToken.RefreshToken = null;
+                getRefreshToken.ExpireTime = null;
+
+                _userRepository.Update(getRefreshToken);
+
+                return new ErrorDataResult<AccessToken>("Token süresi dolmuş.");
+            }
+
+            return new ErrorDataResult<AccessToken>("");
         }
 
         public IDataResult<string> GenerateKey()
@@ -31,7 +68,7 @@ namespace HumanResources.Business.Concrete
             return new SuccessDataResult<string>(key);
         }
 
-        public IResult Login(LoginDto loginDto)
+        public IDataResult<AccessToken> Login(LoginDto loginDto)
         {
             var checkUserFromDb = _userRepository.Get(x => x.Email == loginDto.Email);
 
@@ -44,13 +81,26 @@ namespace HumanResources.Business.Concrete
 
                 if (checkPassword)
                 {
-                    return new SuccessResult();
+                    var accessToken = _tokenService.CreateAccessToken();
+
+                    if (accessToken.Success)
+                    {
+                        var refreshToken = _tokenService.CreateRefreshToken();
+
+                        checkUserFromDb.RefreshToken = refreshToken.Data.refresh_token;
+                        checkUserFromDb.ExpireTime = refreshToken.Data.expire_time;
+                        _userRepository.Update(checkUserFromDb);
+
+                        return new SuccessDataResult<AccessToken>(accessToken.Data);
+                    }
+
+                    return new ErrorDataResult<AccessToken>(accessToken.Message);
                 }
 
-                return new ErrorResult("Girilen parola hatalı");
+                return new ErrorDataResult<AccessToken>("Girilen parola hatalı");
             }
 
-            return new ErrorResult("Kullanıcı bulunamadı.");
+            return new ErrorDataResult<AccessToken>("Kullanıcı bulunamadı.");
         }
 
         public async Task<IResult> Register(RegisterDto userInsertDto)
@@ -76,11 +126,9 @@ namespace HumanResources.Business.Concrete
 
                         var encryptedIdentityNumber = _encryption.EncryptText(user.IdentityNumber.ToString(), userPublicKey);
                         var encryptedPhoneNumber = _encryption.EncryptText(user.Phone, userPublicKey);
-                        var encryptedEmail = _encryption.EncryptText(user.Email, userPublicKey);
 
                         user.IdentityNumber = encryptedIdentityNumber;
                         user.Phone = encryptedPhoneNumber;
-                        user.Email = encryptedEmail;
                         user.PublicKey = encryptedUserPublicKey;
 
                         _userRepository.Insert(user);

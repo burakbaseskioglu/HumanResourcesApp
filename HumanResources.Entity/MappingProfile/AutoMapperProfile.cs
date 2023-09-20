@@ -57,8 +57,7 @@ namespace HumanResources.Core.MappingProfile
             CreateMap<RegisterDto, User>();
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.IdentityNumber, opt => opt.Ignore())
-                .ForMember(dest => dest.Phone, opt => opt.Ignore())
-                .ForMember(dest => dest.Email, opt => opt.Ignore());
+                .ForMember(dest => dest.Phone, opt => opt.Ignore());
             CreateMap<UserUpdateDto, User>();
             CreateMap<User, UserIdentityDto>()
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")))

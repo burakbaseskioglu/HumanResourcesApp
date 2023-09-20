@@ -66,7 +66,6 @@ public class UserBusiness : IUserBusiness
 
             user.IdentityNumber = Convert.ToInt64(_encryption.DecryptText(findUser.IdentityNumber, userDecryptedPublicKey));
             user.Phone = _encryption.DecryptText(findUser.Phone, userDecryptedPublicKey);
-            user.Email = _encryption.DecryptText(findUser.Email, userDecryptedPublicKey);
 
             return new SuccessDataResult<UserDto>(user);
         }
@@ -102,7 +101,6 @@ public class UserBusiness : IUserBusiness
 
             var userPublicKey = user.PublicKey;
             var userDecryptedPublicKey = _encryption.DecryptText(userPublicKey, EncryptionConstant.EncryptionPrivateKey);
-            updatedUser.Email = _encryption.EncryptText(userUpdateDto.Email, userDecryptedPublicKey);
             updatedUser.Phone = _encryption.EncryptText(userUpdateDto.Phone, userDecryptedPublicKey);
 
             _userRepository.Update(updatedUser);

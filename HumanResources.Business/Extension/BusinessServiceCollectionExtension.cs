@@ -2,6 +2,7 @@
 using HumanResources.Business.ActionFilter;
 using HumanResources.Business.Concrete;
 using HumanResources.Core.Utilities.Security.EncryptDecrypt;
+using HumanResources.Core.Utilities.Security.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HumanResources.Business.Extension
@@ -24,6 +25,7 @@ namespace HumanResources.Business.Extension
             services.AddSingleton<IWorkspaceBusiness, WorkspaceBusiness>();
             services.AddSingleton<IApplyForJobBusiness, ApplyForJobBusiness>();
             services.AddSingleton<IEncryption, Encryption>();
+            services.AddSingleton<ITokenService, TokenService>();
         }
     }
 }

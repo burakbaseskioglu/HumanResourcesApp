@@ -30,6 +30,8 @@ public class User : BaseEntity
     public string Password { get; set; }
 
     public string PublicKey { get; set; }
+    public string? RefreshToken { get; set; }
+    public DateTime? ExpireTime { get; set; }
 
     [Required]
     public UserDetail UserDetail { get; set; }

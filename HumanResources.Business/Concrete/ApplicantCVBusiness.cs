@@ -31,7 +31,6 @@ namespace HumanResources.Business.Concrete
 
                 var userPublicKey = userApplicantCV.User.PublicKey;
                 var userDecryptedPublicKey = _encryption.DecryptText(userPublicKey, EncryptionConstant.EncryptionPrivateKey);
-                applicantCV.User.Email = _encryption.DecryptText(userApplicantCV.User.Email, userDecryptedPublicKey);
                 applicantCV.User.Phone = _encryption.DecryptText(userApplicantCV.User.Phone, userDecryptedPublicKey);
                 applicantCV.User.IdentityNumber = Convert.ToInt64(_encryption.DecryptText(userApplicantCV.User.IdentityNumber.ToString(), userDecryptedPublicKey));
 
